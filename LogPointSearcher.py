@@ -60,6 +60,7 @@ class LogPointSearcher:
         repos = []
         
         response = self._get_allowed_data('repos')
+        print response
         allowed_repos = response.get('allowed_repos')
         for repo in allowed_repos:
             repos.append(Repo(repo.get('repo')))
