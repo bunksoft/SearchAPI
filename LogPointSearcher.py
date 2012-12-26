@@ -100,17 +100,11 @@ class LogPointSearcher:
         live_searches_lists = []
         
         response =  self._get_allowed_data('livesearches')
-#        print response
         if response['success']:
             for live_search in response["livesearches"]:
-#                
-#                temp_data = {
-#                             "searchname":live_search["searchname"],
-#                             "life_id":live_search["life_id"],
-#                             "query":live_search["query"]
-#                             }
-            
                 live_searches_lists.append(Response(live_search,"livesearch"))
+        else:
+            live_searches_lists.append()
                 
         return live_searches_lists
 
@@ -140,7 +134,13 @@ class LogPointSearcher:
                 "type": data_type
                 }
 
-        ack = requests.post(url, data=data, timeout=10.0, verify=False)
+        try:
+            ack = requests.post(url, data=data, timeout=10.0, verify=False)
+        except:
+            resp = {}
+            resp["success"] = False
+            resp["message"] = "Request Time Out"
+            return json.loads(resp)
         ret = ''
 
         try:
