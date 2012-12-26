@@ -10,8 +10,8 @@ searcher = LogPointSearcher(ip="192.168.2.205", username="admin", secret_key="29
 #print '-----------------------'
 
 ##OK
-#for repo in searcher.get_repos():
-#    print repo
+for repo in searcher.get_repos():
+    print repo
 #print '-----------------------'
 #
 ##OK
@@ -20,8 +20,8 @@ searcher = LogPointSearcher(ip="192.168.2.205", username="admin", secret_key="29
 #print '-----------------------'
 #
 ##Ok
-for livesearch in searcher.get_live_searches():
-    print livesearch
+#for livesearch in searcher.get_live_searches():
+#    print livesearch
 
 ##OK
 #print searcher.get_timezone()
