@@ -144,6 +144,7 @@ class LogPointSearcher:
         ret = ''
 
         try:
+            print ack.content
             ret = json.loads(ack.content)
         except:
             print ack.content
