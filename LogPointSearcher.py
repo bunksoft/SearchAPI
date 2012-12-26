@@ -36,7 +36,6 @@ class LogPointSearcher:
         
         response = self._get_allowed_data('loginspects')
         allowed_logpoint = response['allowed_loginspects'];
-        print allowed_logpoint
         for data in allowed_logpoint:
             logpoints.append(LogPoint(data["ip"], data["name"]))
 
@@ -61,7 +60,6 @@ class LogPointSearcher:
         repos = []
         
         response = self._get_allowed_data('repos')
-        print response
         allowed_repos = response.get('allowed_repos')
         for repo in allowed_repos:
             repos.append(Repo(repo.get('repo')))
@@ -85,7 +83,6 @@ class LogPointSearcher:
         devices = []
 
         response = self._get_allowed_data('devices')
-        print response
         allowed_devices = response['allowed_devices'];
 
         for i in range(len(allowed_devices)):
