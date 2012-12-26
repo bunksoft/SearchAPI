@@ -52,5 +52,3 @@ class Response:
         """
         """
         return self.response
-    def get_response_query(self):
-        pass

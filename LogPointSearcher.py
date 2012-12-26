@@ -36,7 +36,6 @@ class LogPointSearcher:
         
         response = self._get_allowed_data('loginspects')
         allowed_logpoint = response['allowed_loginspects'];
-        print allowed_logpoint
         for data in allowed_logpoint:
             logpoints.append(LogPoint(data["ip"], data["name"]))
 
@@ -61,7 +60,6 @@ class LogPointSearcher:
         repos = []
         
         response = self._get_allowed_data('repos')
-        print response
         allowed_repos = response.get('allowed_repos')
         for repo in allowed_repos:
             repos.append(Repo(repo.get('repo')))
@@ -85,7 +83,6 @@ class LogPointSearcher:
         devices = []
 
         response = self._get_allowed_data('devices')
-        print response
         allowed_devices = response['allowed_devices'];
 
         for i in range(len(allowed_devices)):
@@ -103,17 +100,11 @@ class LogPointSearcher:
         live_searches_lists = []
         
         response =  self._get_allowed_data('livesearches')
-#        print response
         if response['success']:
             for live_search in response["livesearches"]:
-#                
-#                temp_data = {
-#                             "searchname":live_search["searchname"],
-#                             "life_id":live_search["life_id"],
-#                             "query":live_search["query"]
-#                             }
-            
                 live_searches_lists.append(Response(live_search,"livesearch"))
+        else:
+            live_searches_lists.append()
                 
         return live_searches_lists
 
@@ -143,7 +134,13 @@ class LogPointSearcher:
                 "type": data_type
                 }
 
-        ack = requests.post(url, data=data, timeout=10.0, verify=False)
+        try:
+            ack = requests.post(url, data=data, timeout=10.0, verify=False)
+        except:
+            resp = {}
+            resp["success"] = False
+            resp["message"] = "Request Time Out"
+            return json.loads(resp)
         ret = ''
 
         try:
