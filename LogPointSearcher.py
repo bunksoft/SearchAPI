@@ -9,6 +9,7 @@ from LogPoint import LogPoint
 from Device import Device
 from SearchJob import SearchJob
 from Repos import Repo
+from Response import Response
 
 
 class LogPointSearcher:
