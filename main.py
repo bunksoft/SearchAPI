@@ -4,7 +4,7 @@ from LogPointSearcher import LogPointSearcher
 
 searcher = LogPointSearcher(ip="192.168.2.205", username="admin", secret_key="29cc708f5cee084bb9d7b8c704d6f8e3")
 
-##OK
+##OK test
 for logpoint in searcher.get_log_points():
     print logpoint
 print '-----------------------'
