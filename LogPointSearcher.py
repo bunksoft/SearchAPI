@@ -10,6 +10,7 @@ from Device import Device
 from SearchJob import SearchJob
 from Repos import Repo
 from Response import Response
+from LiveSearch import LiveSearch
 
 
 class LogPointSearcher:
@@ -99,12 +100,12 @@ class LogPointSearcher:
         
         live_searches_lists = []
         
-        response =  self._get_allowed_data('livesearches')
-        if response['success']:
-            for live_search in response["livesearches"]:
-                live_searches_lists.append(Response(live_search,"livesearch"))
+        live_searches =  self._get_allowed_data('livesearches')
+        if live_searches['success']:
+            for live_search in live_searches["livesearches"]:
+                live_searches_lists.append(LiveSearch(live_search["life_id"],live_search["searchname"],live_search["query"]))#,"livesearch"))
         else:
-            live_searches_lists.append()
+            return live_searches_lists 
                 
         return live_searches_lists
 
@@ -136,10 +137,10 @@ class LogPointSearcher:
 
         try:
             ack = requests.post(url, data=data, timeout=10.0, verify=False)
-        except:
+        except(), e:
             resp = {}
             resp["success"] = False
-            resp["message"] = "Request Time Out"
+            resp["message"] = "Request Time Out",e.strerror
             return json.loads(resp)
         ret = ''
 
@@ -151,7 +152,7 @@ class LogPointSearcher:
         return ret
 
     def _get_search_job(self, query):
-        SEARCH_QUERY = "| chart count() by device_ip"
+#        SEARCH_QUERY = "| chart count() by device_ip"
         SEARCH_QUERY = query
         RESULT_LIMIT = 10
         SEARCH_TIME_RANGE = "Last 10 minutes"
