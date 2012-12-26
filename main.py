@@ -19,9 +19,9 @@ print '-----------------------'
 #    print device
 #print '-----------------------'
 #
-##skip
-##for livesearch in searcher.get_live_searches():
-##    print livesearch
+##Ok
+for livesearch in searcher.get_live_searches():
+    print livesearch
 #
 ##OK
 #print searcher.get_timezone()
