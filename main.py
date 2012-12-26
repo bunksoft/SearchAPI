@@ -6,9 +6,9 @@ from LogPointSearcher import LogPointSearcher
 searcher = LogPointSearcher(ip="192.168.2.205", username="bunkdeath", secret_key="bcb070c22969225e0f517b403391bcde")
 
 ##OK test
-#for logpoint in searcher.get_log_points():
-#    print logpoint
-#print '-----------------------'
+for logpoint in searcher.get_log_points():
+    print logpoint
+print '-----------------------'
 
 ##OK
 #for repo in searcher.get_repos():
@@ -16,9 +16,9 @@ searcher = LogPointSearcher(ip="192.168.2.205", username="bunkdeath", secret_key
 #print '-----------------------'
 #
 ##OK
-for device in searcher.get_devices():
-    print device
-print '-----------------------'
+#for device in searcher.get_devices():
+#    print device
+#print '-----------------------'
 #
 ##Ok
 #for livesearch in searcher.get_live_searches():

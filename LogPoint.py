@@ -16,6 +16,9 @@ class LogPoint:
 
     def get_logpoint_ip(self):
         return self.ip
+
+    def get_repos(self):
+        pass
     
     def __str__(self):
         """
