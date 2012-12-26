@@ -140,7 +140,7 @@ class LogPointSearcher:
             resp = {}
             resp["success"] = False
             resp["message"] = "Request Time Out"
-            return json.loads(resp)
+            return resp
         ret = ''
 
         try:
