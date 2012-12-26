@@ -62,11 +62,26 @@ class LogPointSearcher:
         '''
 
         repos = []
+        logpoint = {}
         
         response = self._get_allowed_data('repos')
         allowed_repos = response.get('allowed_repos')
+        logpoints = response.get('logpoint')
+        '''
+        get all the logpoints
+        '''
+        for logpt in logpoints:
+            logpoint_ip = logpt.get('ip')
+            logpoint_name = logpt.get('name')
+            logpoint[logpoint_ip] = logpoint_name
+
+        '''
+        get repo_name and its ip, and reference back to logpoint
+        '''
         for repo in allowed_repos:
-            repos.append(Repo(repo.get('repo')))
+            address, repo_name = repo.get('address').split('/')
+            repo_ip, port = address.split(':')
+            repos.append(Repo(logpoint[repo_ip], repo_name))
         return repos
 
     def get_devices(self, logpoint=None):
@@ -148,6 +163,7 @@ class LogPointSearcher:
         ret = ''
 
         try:
+            print ack.content
             ret = json.loads(ack.content)
         except:
             print ack.content

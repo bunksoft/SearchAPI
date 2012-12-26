@@ -6,12 +6,11 @@ Created on Dec 21, 2012
 
 class Repo:
     
-    def __init__(self, repo_name, logpoint=None):
+    def __init__(self, logpoint, repo_name):
         """
         """
-#        self.logpoint = logpoint
-#        self.name = "%s/%s" % (self.logpoint.name, name)
-        self.name = repo_name
+        self.logpoint = logpoint
+        self.name = "%s/%s" % (logpoint, repo_name)
     
     def __str__(self):
         """
