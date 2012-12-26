@@ -136,10 +136,11 @@ class LogPointSearcher:
 
         try:
             ack = requests.post(url, data=data, timeout=10.0, verify=False)
-        except:
+        except Exception, e:
             resp = {}
             resp["success"] = False
-            resp["message"] = "Request Time Out"
+            resp["message"] = str(e)
+            print resp
             return resp
         ret = ''
 
