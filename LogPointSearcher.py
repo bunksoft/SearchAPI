@@ -1,3 +1,4 @@
+import Config
 __author__="bunkdeath"
 __date__ ="$Dec 21, 2012 2:43:56 PM$"
 
@@ -5,6 +6,7 @@ __date__ ="$Dec 21, 2012 2:43:56 PM$"
 import json
 import time
 import requests
+from Config import Config
 from LogPoint import LogPoint
 from Device import Device
 from SearchJob import SearchJob
@@ -16,11 +18,12 @@ class LogPointSearcher:
     '''
     Searcher class to search for following
     '''
-    def __init__(self, ip, username, secret_key):
-        self.ip = ip
-        self.username = username
-        self.secert_key = secret_key
-        self.request_type = 'https'
+    def __init__(self):
+        config = Config()
+        self.ip = config.ip
+        self.username = config.username
+        self.secert_key = config.secret_key
+        self.request_type = config.request_type
 
 
     def get_log_points(self):

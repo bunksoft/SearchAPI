@@ -3,7 +3,8 @@ from LogPoint import LogPoint
 from LogPointSearcher import LogPointSearcher
 
 #searcher = LogPointSearcher(ip="192.168.2.205", username="admin", secret_key="29cc708f5cee084bb9d7b8c704d6f8e3")
-searcher = LogPointSearcher(ip="192.168.2.205", username="bunkdeath", secret_key="bcb070c22969225e0f517b403391bcde")
+#searcher = LogPointSearcher(ip="192.168.2.205", username="bunkdeath", secret_key="bcb070c22969225e0f517b403391bcde")
+searcher = LogPointSearcher()
 
 ##OK test
 for logpoint in searcher.get_log_points():
