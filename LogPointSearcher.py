@@ -98,9 +98,23 @@ class LogPointSearcher:
         '''
         Returns list of LiveSearch object
         '''
-
+        
+        live_searches_lists = []
+        
         response =  self._get_allowed_data('livesearches')
-        return response
+#        print response
+        if response['success']:
+            for live_search in response["livesearches"]:
+#                
+#                temp_data = {
+#                             "searchname":live_search["searchname"],
+#                             "life_id":live_search["life_id"],
+#                             "query":live_search["query"]
+#                             }
+            
+                live_searches_lists.append(Response(live_search,"livesearch"))
+                
+        return live_searches_lists
 
     def get_timezone(self):
         '''
