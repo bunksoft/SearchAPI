@@ -11,14 +11,14 @@ searcher = LogPointSearcher()
 #print '-----------------------'
 
 ##OK
-for repo in searcher.get_repos():
-    print repo
-print '-----------------------'
+#for repo in searcher.get_repos():
+#    print repo
+#print '-----------------------'
 #
 ##OK
-#for device in searcher.get_devices():
-#    print device
-#print '-----------------------'
+for device in searcher.get_devices():
+    print device
+print '-----------------------'
 #
 ##Ok
 #for livesearch in searcher.get_live_searches():

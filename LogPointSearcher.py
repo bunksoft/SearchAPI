@@ -73,7 +73,7 @@ class LogPointSearcher:
         for logpt in logpoints:
             logpoint_ip = logpt.get('ip')
             logpoint_name = logpt.get('name')
-            logpoint[logpoint_ip] = logpoint_name
+            logpoint[logpoint_ip] = LogPoint(logpoint_ip, logpoint_name)
 
         '''
         get repo_name and its ip, and reference back to logpoint
@@ -100,14 +100,29 @@ class LogPointSearcher:
         '''
         
         devices = []
+        logpoint = {}
+
 
         response = self._get_allowed_data('devices')
         allowed_devices = response['allowed_devices'];
+        logpoints = response['logpoint']
+
+        '''
+        get all the logpoints
+        '''
+        for logpt in logpoints:
+            logpoint_ip = logpt.get('ip')
+            logpoint_name = logpt.get('name')
+            logpoint[logpoint_ip] = LogPoint(logpoint_ip, logpoint_name)
+        
 
         for i in range(len(allowed_devices)):
-            token = allowed_devices[i].split('/')
-            device_ip = token[1]
-            devices.append(Device(device_ip))
+            data = allowed_devices[i]
+            if type(data) is dict:
+                for row in data:
+                    lp, ip = row.split('/')
+                    print ip, data[row], logpoint[lp]
+#                    devices.append(Device(ip, data[row], logpoint[lp]))
         
         return devices
 
@@ -155,11 +170,11 @@ class LogPointSearcher:
 
         try:
             ack = requests.post(url, data=data, timeout=10.0, verify=False)
-        except(), e:
+        except Exception, e:
             resp = {}
             resp["success"] = False
-            resp["message"] = "Request Time Out",e.strerror
-            return json.loads(resp)
+            resp["message"] = str(e)
+            return resp
         ret = ''
 
         try:

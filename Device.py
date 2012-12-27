@@ -5,6 +5,9 @@ class Device:
     
     def __init__(self, ip, name=None, logpoint=None):
         """
+        device ip address
+        device name
+        logpoint object(logpoint ip, logpoint name)
         """
         self.ip = ip
         self.name = name

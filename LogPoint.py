@@ -7,6 +7,8 @@ class LogPoint:
     
     def __init__(self, ip, name=None):
         """
+        logpoint ip address
+        logpoint name
         """
         self.ip = ip
         if name:
