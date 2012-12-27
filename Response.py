@@ -5,23 +5,20 @@ Created on Dec 24, 2012
 '''
 class Response:
     
-    def __init__(self, response,livesearch=None):
+    def __init__(self, response):
         """
         """
         self.response = {}
-        
-        if livesearch:
-            self.response_livesearch(response)
-        else:
-            if (response["type"] == "search"):
-                self.response_type_search(response)
-                
-            if(response["type"] == "time"):
-                self.response_type_time(response)
-                
-            if(response["type"] == "chart"):
-                self.response_type_chart(response)
-                
+
+        if (response["type"] == "search"):
+            self.response_type_search(response)
+            
+        if(response["type"] == "time"):
+            self.response_type_time(response)
+            
+        if(response["type"] == "chart"):
+            self.response_type_chart(response)
+            
     def response_livesearch(self,response):
         self.id = response["life_id"]
         self.query = response["query"]
