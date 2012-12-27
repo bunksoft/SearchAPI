@@ -44,14 +44,14 @@ for livesearch in searcher.get_live_searches():
 #print '-----------------------'
 #
 #
-#search_job = searcher.search('error')
-#if search_job.has_error():
-#    print 'Query has error'
-#    print 'Error Message : ',  search_job.get_error()
-#else:
-#    response = search_job.get_response()
-#    print response
-#print '-----------------------'
+search_job = searcher.search('error')
+if search_job.has_error():
+    print 'Query has error'
+    print 'Error Message : ',  search_job.get_error()
+else:
+    response = search_job.get_response()
+    print response
+print '-----------------------'
 
 
 

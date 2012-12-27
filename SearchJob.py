@@ -4,8 +4,10 @@
 __author__="bunkdeath"
 __date__ ="$Dec 24, 2012 11:36:15 AM$"
 
+from LogPointSearcher import LogPointSearcher
+
 class SearchJob:
-    def __init__(self, searcher, query, response):
+    def __init__(self, response):
         self._success = False
         self._has_error = True
         self._error_message = ''
@@ -16,9 +18,7 @@ class SearchJob:
         self._timerange = ''
 
         #extra added items
-
-        self._query = query
-        self._searcher = searcher
+        self._searcher = LogPointSearcher()
         self.search_id = ''
 
         if response:
