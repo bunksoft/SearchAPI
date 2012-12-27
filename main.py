@@ -16,8 +16,13 @@ searcher = LogPointSearcher()
 #print '-----------------------'
 #
 ##OK
-for device in searcher.get_devices():
-    print device
+devices = searcher.get_devices()
+if devices.get('success'):
+    for device in devices:
+        print device
+else:
+    print 'Something went wrong'
+    print '\t', devices.get('message')
 print '-----------------------'
 #
 ##Ok

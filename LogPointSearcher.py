@@ -102,8 +102,10 @@ class LogPointSearcher:
         devices = []
         logpoint = {}
 
-
         response = self._get_allowed_data('devices')
+        if not response.get('success'):
+            return response
+        
         allowed_devices = response['allowed_devices'];
         logpoints = response['logpoint']
 
@@ -174,9 +176,10 @@ class LogPointSearcher:
             resp = {}
             resp["success"] = False
             resp["message"] = str(e)
+            print resp
             return resp
-        ret = ''
 
+        ret = ''
         try:
             print ack.content
             ret = json.loads(ack.content)
