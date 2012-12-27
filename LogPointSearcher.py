@@ -65,6 +65,9 @@ class LogPointSearcher:
         logpoint = {}
         
         response = self._get_allowed_data('repos')
+        if not response.get('success'):
+            return response
+        
         allowed_repos = response.get('allowed_repos')
         logpoints = response.get('logpoint')
         '''

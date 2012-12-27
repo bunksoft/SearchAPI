@@ -15,7 +15,7 @@ repos = searcher.get_repos()
 if type(repos) is dict:
     if not repos.get('success'):
         print 'Something went wrong'
-        print '\t', devices.get('message')
+        print '\t', repos.get('message')
 else:
     for repo in repos:
         print repo
