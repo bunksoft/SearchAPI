@@ -11,20 +11,29 @@ searcher = LogPointSearcher()
 #print '-----------------------'
 
 ##OK
+repos = searcher.get_repos()
+if type(repos) is dict:
+    if not repos.get('success'):
+        print 'Something went wrong'
+        print '\t', devices.get('message')
+else:
+    for repo in repos:
+        print repo
+print '-----------------------'
 #for repo in searcher.get_repos():
 #    print repo
 #print '-----------------------'
 #
 ##OK
-devices = searcher.get_devices()
-if type(devices) is dict:
-    if not devices.get('success'):
-        print 'Something went wrong'
-        print '\t', devices.get('message')
-else:
-    for device in devices:
-        print device
-print '-----------------------'
+#devices = searcher.get_devices()
+#if type(devices) is dict:
+#    if not devices.get('success'):
+#        print 'Something went wrong'
+#        print '\t', devices.get('message')
+#else:
+#    for device in devices:
+#        print device
+#print '-----------------------'
 #
 ##Ok
 #for livesearch in searcher.get_live_searches():
