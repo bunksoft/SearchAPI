@@ -17,12 +17,13 @@ searcher = LogPointSearcher()
 #
 ##OK
 devices = searcher.get_devices()
-if devices.get('success'):
+if type(devices) is dict:
+    if not devices.get('success'):
+        print 'Something went wrong'
+        print '\t', devices.get('message')
+else:
     for device in devices:
         print device
-else:
-    print 'Something went wrong'
-    print '\t', devices.get('message')
 print '-----------------------'
 #
 ##Ok

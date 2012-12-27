@@ -123,8 +123,8 @@ class LogPointSearcher:
             if type(data) is dict:
                 for row in data:
                     lp, ip = row.split('/')
-                    print ip, data[row], logpoint[lp]
-#                    devices.append(Device(ip, data[row], logpoint[lp]))
+#                    print ip, data[row], logpoint[lp]
+                    devices.append(Device(ip, data[row], logpoint[lp]))
         
         return devices
 
