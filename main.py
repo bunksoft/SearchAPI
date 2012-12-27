@@ -11,15 +11,15 @@ searcher = LogPointSearcher()
 #print '-----------------------'
 
 ##OK
-repos = searcher.get_repos()
-if type(repos) is dict:
-    if not repos.get('success'):
-        print 'Something went wrong'
-        print '\t', repos.get('message')
-else:
-    for repo in repos:
-        print repo
-print '-----------------------'
+#repos = searcher.get_repos()
+#if type(repos) is dict:
+#    if not repos.get('success'):
+#        print 'Something went wrong'
+#        print '\t', repos.get('message')
+#else:
+#    for repo in repos:
+#        print repo
+#print '-----------------------'
 #for repo in searcher.get_repos():
 #    print repo
 #print '-----------------------'
@@ -44,14 +44,14 @@ print '-----------------------'
 #print '-----------------------'
 #
 #
-#search_job = searcher.search('error')
-#if search_job.has_error():
-#    print 'Query has error'
-#    print 'Error Message : ',  search_job.get_error()
-#else:
-#    response = search_job.get_response()
-#    print response
-#print '-----------------------'
+search_job = searcher.search('error')
+if search_job.has_error():
+    print 'Query has error'
+    print 'Error Message : ',  search_job.get_error()
+else:
+    response = search_job.get_response()
+    print response
+print '-----------------------'
 
 
 

@@ -192,7 +192,6 @@ class LogPointSearcher:
         return ret
 
     def _get_search_job(self, query):
-#        SEARCH_QUERY = "| chart count() by device_ip"
         SEARCH_QUERY = query
         RESULT_LIMIT = 10
         SEARCH_TIME_RANGE = "Last 10 minutes"
@@ -216,7 +215,7 @@ class LogPointSearcher:
         ack = requests.post(url, data=data, timeout=10.0, verify=False)
 
         response = json.loads(ack.content)
-        return SearchJob(self, query, response)
+        return SearchJob(response)
         
 
     def get_response(self, search_id):
