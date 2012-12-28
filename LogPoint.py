@@ -16,7 +16,7 @@ class LogPoint:
         else:
             self.name = self.ip.replace(".", "_")
 
-    def get_logpoint_ip(self):
+    def get_ip(self):
         return self.ip
 
     def get_repos(self):

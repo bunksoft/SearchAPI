@@ -92,7 +92,32 @@ def _get_search_results(ip, request_type, username, user_key):
         
         return response
     
-    return response 
+    return response
+
+
+def _get_allowed_repos(ip, request_type, username, user_key, data_type, logpoints=[]):
+    url = "%s://%s/%s" % (request_type, ip, "getalloweddata")
+
+    data = {
+            "username":username,
+            "secret_key": user_key,
+            "type": data_type,
+            "logpoints": json.dumps(logpoints)
+            }
+    print data
+
+    ack = requests.post(url, data=data, timeout=10.0, verify=False)
+
+    print ack
+    print ack.content
+    ret = 'Sorry'
+
+    try:
+        ret = json.loads(ack.content)
+    except:
+        print 'sorry'
+
+    return ret
 
 def main():
     ip, request_type, username, user_key = _get_config_parameters()
@@ -101,9 +126,11 @@ def main():
     #print _get_allowed_data(ip, request_type, username, user_key, "livesearches")
     
     #FIND REPOS ALLOWED FOR USER
-    response = _get_allowed_data(ip, request_type, username, user_key, "repos")    
+#    response = _get_allowed_data(ip, request_type, username, user_key, "repos")
+#    print response
+
+    response = _get_allowed_repos(ip, request_type, username, user_key, "repos", ['10.170.228.1'])
     print response
-    
     #FIND DEVICES ALLOWED FOR USER
     #print _get_allowed_data(ip, request_type, username, user_key, "devices")
     

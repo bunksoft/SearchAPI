@@ -46,7 +46,7 @@ class LogPointSearcher:
         return logpoints
 
 
-    def get_repos(self, logpoint=None):
+    def get_repos(self, logpoints=None):
         ''' 
         Search for repos for which the user have permission to access
         according to credential provided
@@ -61,10 +61,19 @@ class LogPointSearcher:
         Returns list of Repo object
         '''
 
+        if not logpoints:
+            logpoints = []
+            
         repos = []
         logpoint = {}
+        logpoint_list = []
         
-        response = self._get_allowed_data('repos')
+#        response = self._get_allowed_data('repos')
+        for logpoint in logpoints:
+            logpoint_list.append(logpoint.get_ip())
+
+        response =  self._get_allowed_data("repos", logpoint_list)
+
         if not response.get('success'):
             return response
         
@@ -164,14 +173,17 @@ class LogPointSearcher:
 
         return self._get_search_job(query)
 
-    def _get_allowed_data(self, data_type):
+    def _get_allowed_data(self, data_type, logpoints=None):
         url = "%s://%s/%s" % (self.request_type, self.ip, "getalloweddata")
 
         data = {
                 "username": self.username,
                 "secret_key": self.secert_key,
-                "type": data_type
+                "type": data_type,
+                "logpoints": json.dumps(logpoints)
                 }
+
+        print data
 
         try:
             ack = requests.post(url, data=data, timeout=10.0, verify=False)
@@ -212,7 +224,14 @@ class LogPointSearcher:
                             })
                 }
 
-        ack = requests.post(url, data=data, timeout=10.0, verify=False)
+        try:
+            ack = requests.post(url, data=data, timeout=10.0, verify=False)
+        except Exception, e:
+            resp = {}
+            resp["success"] = False
+            resp["message"] = str(e)
+            print resp
+            return resp
 
         response = json.loads(ack.content)
         return SearchJob(response)
