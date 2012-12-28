@@ -6,23 +6,32 @@ from LogPointSearcher import LogPointSearcher
 searcher = LogPointSearcher()
 
 ##OK test
-logpoints = searcher.get_log_points()
-for logpoint in logpoints:
-    print logpoint
-print '-----------------------'
+#<<<<<<< HEAD
+#logpoints = searcher.get_log_points()
+#for logpoint in logpoints:
+#    print logpoint
+#print '-----------------------'
+#
+##OK
+#print 'ip : ', logpoints[1].get_ip()
+#print 'ip : ', logpoints[0].get_ip()
+#repos = searcher.get_repos(logpoints[1])
+#=======
+#for logpoint in searcher.get_log_points():
+#    print logpoint
+#print '-----------------------'
 
 ##OK
-print 'ip : ', logpoints[1].get_ip()
-print 'ip : ', logpoints[0].get_ip()
-repos = searcher.get_repos(logpoints[1])
-if type(repos) is dict:
-    if not repos.get('success'):
-        print 'Something went wrong'
-        print '\t', repos.get('message')
-else:
-    for repo in repos:
-        print repo
-print '-----------------------'
+#repos = searcher.get_repos()
+#>>>>>>> 2f0c76d13fdacca8760e317c18d9393ae896b3ee
+#if type(repos) is dict:
+#    if not repos.get('success'):
+#        print 'Something went wrong'
+#        print '\t', repos.get('message')
+#else:
+#    for repo in repos:
+#        print repo
+#print '-----------------------'
 #for repo in searcher.get_repos():
 #    print repo
 #print '-----------------------'
@@ -39,14 +48,24 @@ print '-----------------------'
 #print '-----------------------'
 #
 ##Ok
-#for livesearch in searcher.get_live_searches():
-#    print livesearch
-#
+livesearches  = searcher.get_live_searches()
+if type(livesearches) is dict:
+#    later needs to create a SearchJob object.
+    if not livesearches.get("success"):
+        print "Something went wrong."
+else:
+    if len(livesearches) > 0:
+        for livesearch in livesearches:
+            print livesearch
+    else:
+        print "Nothing found for your search"
+
 ##OK
 #print searcher.get_timezone()
 #print '-----------------------'
 #
 #
+#<<<<<<< HEAD
 #search_job = searcher.search('denied')
 #if search_job.has_error():
 #    print 'Query has error'
@@ -55,6 +74,16 @@ print '-----------------------'
 #    response = search_job.get_response()
 #    print response
 #print '-----------------------'
+#=======
+#search_job = searcher.search('error')
+#if search_job.has_error():
+#    print 'Query has error'
+#    print 'Error Message : ',  search_job.get_error()
+#else:
+#    response = search_job.get_response()
+#    print response
+#print '-----------------------'
+#>>>>>>> 2f0c76d13fdacca8760e317c18d9393ae896b3ee
 
 
 
