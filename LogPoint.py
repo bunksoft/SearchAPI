@@ -23,9 +23,9 @@ class LogPoint:
         return self.name
 
     def get_repos(self):
+        from LogPointSearcher import LogPointSearcher
         searcher = LogPointSearcher()
-        searcher.get_repos(self)
-        pass
+        return searcher.get_repos([self])
     
     def __str__(self):
         info = 'LogPoint Info\n'
