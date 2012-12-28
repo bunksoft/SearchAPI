@@ -66,11 +66,10 @@ class LogPointSearcher:
             
         repos = []
         logpoint = {}
-        logpoint_list = []
+        logpoint_list = ['10.170.228.1']
         
-#        response = self._get_allowed_data('repos')
         for logpoint_row in logpoint_object:
-            lp = logpoint_row.get_ip() #+ '/' + logpoint_row.name
+            lp = logpoint_row.get_ip()
             print lp
             logpoint_list.append(lp)
 
@@ -137,7 +136,6 @@ class LogPointSearcher:
             if type(data) is dict:
                 for row in data:
                     lp, ip = row.split('/')
-#                    print ip, data[row], logpoint[lp]
                     devices.append(Device(ip, data[row], logpoint[lp]))
         
         return devices

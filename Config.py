@@ -9,4 +9,6 @@ class Config:
         self.ip = '192.168.2.205'
         self.username = 'mytest'
         self.secret_key = 'a2b29749ff3fcff8c3cb46315627f8b0'
+        self.username = 'bunkdeath'
+        self.secret_key = 'bcb070c22969225e0f517b403391bcde'
         self.request_type = 'https'

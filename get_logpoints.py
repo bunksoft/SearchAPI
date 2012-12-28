@@ -12,10 +12,4 @@ searcher = LogPointSearcher()
 
 logpoints = searcher.get_log_points()
 for logpoint in logpoints:
-    print logpoint.get_ip()
     print logpoint
-    print '------------------'
-print '------------------'
-
-print 'ip : ', logpoints[1].get_ip()
-print 'ip : ', logpoints[0].get_ip()

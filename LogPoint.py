@@ -24,6 +24,7 @@ class LogPoint:
         pass
     
     def __str__(self):
-        """
-        """
-        return self.name
+        info = 'LogPoint Info\n'
+        info += '\tName : ' + self.name + '\n'
+        info += '\tIP   : ' + self.ip + '\n'
+        return info
