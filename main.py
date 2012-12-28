@@ -36,23 +36,31 @@ searcher = LogPointSearcher()
 #print '-----------------------'
 #
 ##Ok
-for livesearch in searcher.get_live_searches():
-    print livesearch
-
+livesearches  = searcher.get_live_searches()
+if type(livesearches) is dict:
+#    later needs to create a SearchJob object.
+    if not livesearches.get("success"):
+        print "Something went wrong."
+else:
+    if len(livesearches) > 0:
+        for livesearch in livesearches:
+            print livesearch
+    else:
+        print "Nothing found for your search"
 
 ##OK
 #print searcher.get_timezone()
 #print '-----------------------'
 #
 #
-search_job = searcher.search('error')
-if search_job.has_error():
-    print 'Query has error'
-    print 'Error Message : ',  search_job.get_error()
-else:
-    response = search_job.get_response()
-    print response
-print '-----------------------'
+#search_job = searcher.search('error')
+#if search_job.has_error():
+#    print 'Query has error'
+#    print 'Error Message : ',  search_job.get_error()
+#else:
+#    response = search_job.get_response()
+#    print response
+#print '-----------------------'
 
 
 

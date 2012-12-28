@@ -148,7 +148,7 @@ class LogPointSearcher:
         live_searches_lists = []
         
         live_searches =  self._get_allowed_data('livesearches')
-        if live_searches['success']:
+        if live_searches.get("success"):
             for live_search in live_searches["livesearches"]:
                 live_searches_lists.append(LiveSearch(live_search["life_id"],live_search["searchname"],live_search["query"]))#,"livesearch"))
         else:
