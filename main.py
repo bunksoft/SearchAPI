@@ -39,6 +39,7 @@ searcher = LogPointSearcher()
 for livesearch in searcher.get_live_searches():
     print livesearch
 
+
 ##OK
 #print searcher.get_timezone()
 #print '-----------------------'
