@@ -6,8 +6,6 @@ from LogPointSearcher import LogPointSearcher
 searcher = LogPointSearcher()
 
 ##OK test
-#<<<<<<< HEAD
-#<<<<<<< HEAD
 #logpoints = searcher.get_log_points()
 #for logpoint in logpoints:
 #    print logpoint
@@ -17,19 +15,12 @@ searcher = LogPointSearcher()
 #print 'ip : ', logpoints[1].get_ip()
 #print 'ip : ', logpoints[0].get_ip()
 #repos = searcher.get_repos(logpoints[1])
-#=======
-#=======
-#>>>>>>> 2f0c76d13fdacca8760e317c18d9393ae896b3ee
 #for logpoint in searcher.get_log_points():
 #    print logpoint
 #print '-----------------------'
 
 ##OK
 #repos = searcher.get_repos()
-#<<<<<<< HEAD
-#>>>>>>> 2f0c76d13fdacca8760e317c18d9393ae896b3ee
-#=======
-#>>>>>>> 2f0c76d13fdacca8760e317c18d9393ae896b3ee
 #if type(repos) is dict:
 #    if not repos.get('success'):
 #        print 'Something went wrong'
@@ -71,20 +62,6 @@ else:
 #print '-----------------------'
 #
 #
-#<<<<<<< HEAD
-#<<<<<<< HEAD
-#search_job = searcher.search('denied')
-#=======
-#search_job = searcher.search('error')
-#>>>>>>> 2f0c76d13fdacca8760e317c18d9393ae896b3ee
-#if search_job.has_error():
-#    print 'Query has error'
-#    print 'Error Message : ',  search_job.get_error()
-#else:
-#    response = search_job.get_response()
-#    print response
-#print '-----------------------'
-#=======
 #search_job = searcher.search('error')
 #if search_job.has_error():
 #    print 'Query has error'
@@ -93,8 +70,14 @@ else:
 #    response = search_job.get_response()
 #    print response
 #print '-----------------------'
-#>>>>>>> 2f0c76d13fdacca8760e317c18d9393ae896b3ee
-
+#search_job = searcher.search('error')
+#if search_job.has_error():
+#    print 'Query has error'
+#    print 'Error Message : ',  search_job.get_error()
+#else:
+#    response = search_job.get_response()
+#    print response
+#print '-----------------------'
 
 
 
