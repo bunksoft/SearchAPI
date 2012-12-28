@@ -46,7 +46,7 @@ class LogPointSearcher:
         return logpoints
 
 
-    def get_repos(self, logpoints=None):
+    def get_repos(self, logpoint_object=None):
         ''' 
         Search for repos for which the user have permission to access
         according to credential provided
@@ -61,16 +61,18 @@ class LogPointSearcher:
         Returns list of Repo object
         '''
 
-        if not logpoints:
-            logpoints = []
+        if not logpoint_object:
+            logpoint_object = []
             
         repos = []
         logpoint = {}
         logpoint_list = []
         
 #        response = self._get_allowed_data('repos')
-        for logpoint in logpoints:
-            logpoint_list.append(logpoint.get_ip())
+        for logpoint_row in logpoint_object:
+            lp = logpoint_row.get_ip() #+ '/' + logpoint_row.name
+            print lp
+            logpoint_list.append(lp)
 
         response =  self._get_allowed_data("repos", logpoint_list)
 
@@ -78,11 +80,11 @@ class LogPointSearcher:
             return response
         
         allowed_repos = response.get('allowed_repos')
-        logpoints = response.get('logpoint')
+        logpoint_object = response.get('logpoint')
         '''
         get all the logpoints
         '''
-        for logpt in logpoints:
+        for logpt in logpoint_object:
             logpoint_ip = logpt.get('ip')
             logpoint_name = logpt.get('name')
             logpoint[logpoint_ip] = LogPoint(logpoint_ip, logpoint_name)
