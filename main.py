@@ -38,7 +38,6 @@ searcher = LogPointSearcher()
 ##Ok
 livesearches  = searcher.get_live_searches()
 if type(livesearches) is dict:
-#    later needs to create a SearchJob object.
     if not livesearches.get("success"):
         print "Something went wrong."
 else:
