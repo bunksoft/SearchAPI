@@ -6,6 +6,15 @@ from LogPointSearcher import LogPointSearcher
 searcher = LogPointSearcher()
 
 ##OK test
+#logpoints = searcher.get_log_points()
+#for logpoint in logpoints:
+#    print logpoint
+#print '-----------------------'
+#
+##OK
+#print 'ip : ', logpoints[1].get_ip()
+#print 'ip : ', logpoints[0].get_ip()
+#repos = searcher.get_repos(logpoints[1])
 #for logpoint in searcher.get_log_points():
 #    print logpoint
 #print '-----------------------'
@@ -60,7 +69,14 @@ else:
 #    response = search_job.get_response()
 #    print response
 #print '-----------------------'
-
+#search_job = searcher.search('error')
+#if search_job.has_error():
+#    print 'Query has error'
+#    print 'Error Message : ',  search_job.get_error()
+#else:
+#    response = search_job.get_response()
+#    print response
+#print '-----------------------'
 
 
 

@@ -5,30 +5,25 @@ Created on Dec 24, 2012
 '''
 class Response:
     
-    def __init__(self, response):
+    def __init__(self, response_string):
         """
         """
-        self.response = {}
+        self.data = {}
 
-        if (response["type"] == "search"):
-            self.response_type_search(response)
+        if (response_string["type"] == "search"):
+            self.search(response_string)
             
-        if(response["type"] == "time"):
-            self.response_type_time(response)
+        if(response_string["type"] == "time"):
+            self.timechart(response_string)
             
-        if(response["type"] == "chart"):
-            self.response_type_chart(response)
-            
-    def response_livesearch(self,response):
-        self.id = response["life_id"]
-        self.query = response["query"]
-        self.searchname = response["searchname"]
+        if(response_string["type"] == "chart"):
+            self.chart(response_string)
     
-    def response_type_search(self,response):
-        self.final = response["final"]
-        self.estim_count = response["estim_count"]
-        self.type = response["type"]
-        self.data = "DataINSERT"
+    def search(self, response_string):
+        self.final = response_string["final"]
+        self.data = response_string['rows']
+        self.total_count = response_string["estim_count"]
+        self.type = response_string["type"]
         
     def response_type_time(self,response):
         self.final = response["final"]
@@ -43,6 +38,9 @@ class Response:
         self.estim_count = response["estim_count"]
         self.type = response["type"]
         self.data = "DataINSERT"
+
+    def _extract_search_data(self, response_string):
+        pass
         
     
     def get_response(self):

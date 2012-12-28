@@ -7,6 +7,7 @@ import ConfigParser
 CONFIG_FILE = "search.conf" #name of config file containing loginspect ip, username, secret key
 
 SEARCH_QUERY = "| chart count() by device_ip"
+SEARCH_QUERY = "error"
 RESULT_LIMIT = 10
 SEARCH_TIME_RANGE = "Last 10 minutes"
 SEARCH_REPOS = []
@@ -129,8 +130,8 @@ def main():
 #    response = _get_allowed_data(ip, request_type, username, user_key, "repos")
 #    print response
 
-    response = _get_allowed_repos(ip, request_type, username, user_key, "repos", ['10.170.228.1'])
-    print response
+#    response = _get_allowed_repos(ip, request_type, username, user_key, "repos", ['10.170.228.1'])
+#    print response
     #FIND DEVICES ALLOWED FOR USER
     #print _get_allowed_data(ip, request_type, username, user_key, "devices")
     
@@ -141,8 +142,8 @@ def main():
     #print _get_allowed_data(ip, request_type, username, user_key, "user_preference")
     
     #PRINT SEARCH RESULTS
-#    response = _get_search_results(ip, request_type, username, user_key)
-#    print response
+    response = _get_search_results(ip, request_type, username, user_key)
+    print response
 
 if __name__ == "__main__":
     main()

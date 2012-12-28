@@ -232,7 +232,7 @@ class LogPointSearcher:
             resp["message"] = str(e)
             print resp
             return resp
-
+        
         response = json.loads(ack.content)
         return SearchJob(response)
         
@@ -259,7 +259,6 @@ class LogPointSearcher:
                 if res.get('success'):
                     response = res
                 if res['final'] == True:
-                    print 'final'
                     break
 
             if not response:
