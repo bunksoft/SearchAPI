@@ -19,8 +19,12 @@ class LogPoint:
     def get_ip(self):
         return self.ip
 
+    def get_name(self):
+        return self.name
+
     def get_repos(self):
         searcher = LogPointSearcher()
+        searcher.get_repos(self)
         pass
     
     def __str__(self):

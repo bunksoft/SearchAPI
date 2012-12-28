@@ -39,6 +39,9 @@ class LogPointSearcher:
         logpoints = []
         
         response = self._get_allowed_data('loginspects')
+        if not response.get('success'):
+            return response
+        
         allowed_logpoint = response['allowed_loginspects'];
         for data in allowed_logpoint:
             logpoints.append(LogPoint(data["ip"], data["name"]))
@@ -66,35 +69,53 @@ class LogPointSearcher:
             
         repos = []
         logpoint = {}
-        logpoint_list = ['10.170.228.1']
+        logpoint_list = []
         
         for logpoint_row in logpoint_object:
             lp = logpoint_row.get_ip()
-            print lp
             logpoint_list.append(lp)
 
-        response =  self._get_allowed_data("repos", logpoint_list)
+        response =  self._get_allowed_data("logpoint_repos", logpoint_list)
 
         if not response.get('success'):
             return response
         
         allowed_repos = response.get('allowed_repos')
-        logpoint_object = response.get('logpoint')
-        '''
-        get all the logpoints
-        '''
-        for logpt in logpoint_object:
-            logpoint_ip = logpt.get('ip')
-            logpoint_name = logpt.get('name')
-            logpoint[logpoint_ip] = LogPoint(logpoint_ip, logpoint_name)
+        response_logpoint_string = response.get('logpoint')
+
+        if response_logpoint_string:
+            '''
+            get all the logpoints
+
+            if only results have logpoint key and its value
+
+            if it is not contained, most probable the logpoint
+            object list is passed in the method
+            '''
+            for logpt in response_logpoint_string:
+                logpoint_ip = logpt.get('ip')
+                logpoint_name = logpt.get('name')
+                #TODO
+                # what if, instead of logpoint object,
+                # logpoint name is provided?
+                logpoint[logpoint_ip] = LogPoint(logpoint_ip, logpoint_name)
+        else:
+            '''
+            if logpoint objects were passed in method parameter
+
+            generate logpoint list
+            '''
+            for logpt in logpoint_object:
+                logpoint[logpt.get_ip()] = logpt
+
 
         '''
         get repo_name and its ip, and reference back to logpoint
         '''
         for repo in allowed_repos:
             address, repo_name = repo.get('address').split('/')
-            repo_ip, port = address.split(':')
-            repos.append(Repo(logpoint[repo_ip], repo_name))
+            logpoint_ip, port = address.split(':')
+            repos.append(Repo(logpoint[logpoint_ip].get_name(), repo_name))
         return repos
 
     def get_devices(self, logpoint=None):

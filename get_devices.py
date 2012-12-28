@@ -7,7 +7,7 @@ __date__ ="$Dec 28, 2012 1:41:07 PM$"
 from LogPointSearcher import LogPointSearcher
 
 searcher = LogPointSearcher()
-
+test = 'amrit'
 
 devices = searcher.get_devices()
 if type(devices) is dict:

@@ -8,6 +8,7 @@ class Repo:
     
     def __init__(self, logpoint_name, repo_name):
         """
+        logpoint is logpoint object
         """
         self._logpoint_name = logpoint_name
         self._repo_name = repo_name

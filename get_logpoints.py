@@ -9,7 +9,10 @@ from LogPointSearcher import LogPointSearcher
 
 searcher = LogPointSearcher()
 
-
 logpoints = searcher.get_log_points()
-for logpoint in logpoints:
-    print logpoint
+if type(logpoint) is dict:
+    if not logpoints.get('success'):
+        print 'Error : ', logpoints.get('message')
+else:
+    for logpoint in logpoints:
+        print logpoint
