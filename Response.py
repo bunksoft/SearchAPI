@@ -9,15 +9,15 @@ class Response:
         """
         """
         self.data = {}
-
+        print "response_string-Response.py-line12 =>",response_string
         if (response_string["type"] == "search"):
             self.search(response_string)
             
         if(response_string["type"] == "time"):
-            self.timechart(response_string)
+            self.response_type_time(response_string)
             
         if(response_string["type"] == "chart"):
-            self.chart(response_string)
+            self.response_type_chart(response_string)
     
     def search(self, response_string):
         self.final = response_string["final"]

@@ -16,6 +16,7 @@ def get():
     else:
         if len(livesearches) > 0:
             for livesearch in livesearches:
+#                livesearch.get_response()
                 print livesearch
         else:
             print "Nothing found for your search"

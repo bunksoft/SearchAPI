@@ -17,4 +17,23 @@ class LiveSearch:
 
         This method returns the response object for the live search
         '''
-        pass
+        from LogPointSearcher import LogPointSearcher
+        searcher = LogPointSearcher()
+         
+        search_job = searcher.search(self.query) 
+        if type(search_job) is not dict:
+            if search_job.has_error():
+                print 'Query has error'
+                print 'Error Message : ', search_job.get_error()
+            else:
+#                This is the response object. livesearch response will be more the response.get_response.
+                response = search_job.get_response()
+                self.response = response
+#                self.response = response.get_response(self)
+                
+#            print '-----------------------'
+        else:
+            self.response = search_job.get("message")
+#            print search_job.get("message")
+        
+        return self.response

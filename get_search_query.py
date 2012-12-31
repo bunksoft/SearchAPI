@@ -6,10 +6,9 @@ __date__ ="$Dec 28, 2012 1:40:01 PM$"
 
 from LogPointSearcher import LogPointSearcher
 
-def get():
+def get(query = "error"):
     searcher = LogPointSearcher()
      
-    query = "error"
     search_job = searcher.search(query)
 #     LogpointSearcher._get_search_job(query) returns a dictionary when there is error but a response object in success 
     if type(search_job) is not dict:
