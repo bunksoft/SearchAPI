@@ -9,12 +9,17 @@ from LogPointSearcher import LogPointSearcher
 searcher = LogPointSearcher()
 
 
-devices = searcher.get_devices()
-if type(devices) is dict:
-    if not devices.get('success'):
-        print 'Something went wrong'
-        print '\t', devices.get('message')
+logpoints = searcher.get_log_points()
+if type(logpoints) is dict:
+    if not logpoints.get('success'):
+        print 'Error : ', logpoints.get('message')
 else:
-    for device in devices:
-        print device
-print '-----------------------'
+    devices = searcher.get_devices([logpoints[0]])
+    if type(devices) is dict:
+        if not devices.get('success'):
+            print 'Something went wrong'
+            print '\t', devices.get('message')
+    else:
+        for device in devices:
+            print device
+    print '-----------------------'

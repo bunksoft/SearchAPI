@@ -4,7 +4,7 @@ __date__ ="$Dec 21, 2012 1:56:59 PM$"
 class Device:
 #TODO
 #what to print for device. device name format
-    def __init__(self, ip, name=None, logpoint=None):
+    def __init__(self, ip, name, logpoint):
         """
         device ip address
         device name
@@ -37,9 +37,13 @@ class Device:
         
         This method returns the logpoint object respective to the device
         '''
+
+        
         return self.logpoint
 
     def __str__(self):
-        """
-        """
-        return self.ip
+        info = 'Device Info\n'
+        info += '\tRespective LP : ' + str(self.logpoint) + '\n'
+        info += '\tDevice IP     : '+ self.ip + '\n'
+        info += '\tDevice Name   : '+ self.name + '\n'
+        return info

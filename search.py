@@ -96,7 +96,8 @@ def _get_search_results(ip, request_type, username, user_key):
     return response
 
 
-def _get_allowed_repos(ip, request_type, username, user_key, data_type, logpoints=[]):
+def _get_allowed_repos(ip, request_type, username, user_key, data_type):
+    logpoints = ["10.170.228.1"]
     url = "%s://%s/%s" % (request_type, ip, "getalloweddata")
 
     data = {
@@ -142,8 +143,10 @@ def main():
     #print _get_allowed_data(ip, request_type, username, user_key, "user_preference")
     
     #PRINT SEARCH RESULTS
-    response = _get_search_results(ip, request_type, username, user_key)
-    print response
+#    response = _get_search_results(ip, request_type, username, user_key)
+#    print response
+
+    print _get_allowed_data(ip, request_type, username, user_key, "logpoint_repos")
 
 if __name__ == "__main__":
     main()

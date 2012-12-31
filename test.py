@@ -25,31 +25,51 @@
 
 #j = '{"timerange_second":0,"vid":"","description":"","searchname":"Remote Interactive Logon Sessions","query_info":{"every_time_unit":"second","query_type":"chart","query_filter":"((action=\'logged on\' OR action=\'logged off\' OR action='Logon' OR action='Logoff')  AND logon_type=10) OR ( event_id=551 OR event_id=4647)","lucene_query":"((action:logged\\ on OR action:logged\\ off OR action:logon OR action:logoff) _num_logon_type:[10 TO 10]) OR (_num_event_id:[551 TO 551] OR _num_event_id:[4647 TO 4647])","aliases":["group","count()"],"columns":["group","count()"],"grouping":["log_ts","user","logon_id","action","source_address","device_ip"]},"generated_by":"dashboard","timerange_day":1,"timerange_minute":0,"life_id":"6fc62f25c365a74d8694e9379ea71d17a9b6bec2","limit":100,"timerange_hour":0,"tid":"","query":"((action='logged on' OR action='logged off' OR action='Logon' OR action='Logoff')  AND logon_type=10) OR ( event_id=551 OR event_id=4647)| rename target_user as user  | chart count() by log_ts, user, logon_id, action, source_address, device_ip order by logon_id desc"    }'
 
-response = {
-    u'allowed_all_devices': True,
-    u'success': True,
-    u'allowed_devices': [
-        [
-            u'127.0.0.1/127.0.0.1',
-            u'127.0.0.1/: : 1',
-            u'127.0.0.1/192.168.2.3',
-            u'127.0.0.1/192.168.2.5'
-        ],
-        {
-            u'127.0.0.1/192.168.2.5': u'boyish',
-            u'127.0.0.1/127.0.0.1': u'localhost',
-            u'127.0.0.1/: : 1': u'localhost',
-            u'127.0.0.1/192.168.2.3': u'freeup'
-        }
-    ]
-}
+#response = {
+#    u'allowed_all_devices': True,
+#    u'success': True,
+#    u'allowed_devices': [
+#        [
+#            u'127.0.0.1/127.0.0.1',
+#            u'127.0.0.1/: : 1',
+#            u'127.0.0.1/192.168.2.3',
+#            u'127.0.0.1/192.168.2.5'
+#        ],
+#        {
+#            u'127.0.0.1/192.168.2.5': u'boyish',
+#            u'127.0.0.1/127.0.0.1': u'localhost',
+#            u'127.0.0.1/: : 1': u'localhost',
+#            u'127.0.0.1/192.168.2.3': u'freeup'
+#        }
+#    ]
+#}
+#
+#allowed_device = response.get('allowed_devices')
+#
+#list = allowed_device[1]
+#
+#for item in list:
+#    li, ip = item.split('/')
+#    print 'IP address  : ', ip
+#    print 'Device name : ', list.get(item)
+#    print '--------------'
 
-allowed_device = response.get('allowed_devices')
+import json
+import requests
 
-list = allowed_device[1]
+def _get_allowed_data(data_type):
+    logpoints=["127.0.0.1"]
+    url = "%s://%s/%s" % ('https', '192.168.2.205', "getalloweddata")
 
-for item in list:
-    li, ip = item.split('/')
-    print 'IP address  : ', ip
-    print 'Device name : ', list.get(item)
-    print '--------------'
+    data = {
+            "username":'bunkdeath',
+            "secret_key": 'bcb070c22969225e0f517b403391bcde',
+            "type": data_type,
+            "logpoints": json.dumps(logpoints),
+            }
+
+    ack = requests.post(url, data=data, timeout=10.0, verify=False)
+
+    return json.loads(ack.content)
+
+print _get_allowed_data("logpoint_repos")
