@@ -9,7 +9,8 @@ from LogPointSearcher import LogPointSearcher
 def get():
     searcher = LogPointSearcher()
      
-    search_job = searcher.search('error')
+    query = "error"
+    search_job = searcher.search(query)
 #     LogpointSearcher._get_search_job(query) returns a dictionary when there is error but a response object in success 
     if type(search_job) is not dict:
         if search_job.has_error():
