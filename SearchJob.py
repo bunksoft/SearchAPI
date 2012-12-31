@@ -23,6 +23,7 @@ class SearchJob:
         self.search_id = ''
 
         if response:
+            print "Response String to search job object => ",response,"\nEND"
             self._parse_query(response)
         
         
@@ -53,7 +54,7 @@ class SearchJob:
     def get_response(self):
         response_string = self._searcher.get_response(self.search_id)
         response = Response(response_string)
-        
+    
         return response_string
 
     def get_type(self):

@@ -7,8 +7,7 @@ __date__ ="$Dec 28, 2012 1:40:01 PM$"
 from LogPointSearcher import LogPointSearcher
 
 searcher = LogPointSearcher()
-
-    
+ 
 search_job = searcher.search('error')
 if search_job.has_error():
     print 'Query has error'
