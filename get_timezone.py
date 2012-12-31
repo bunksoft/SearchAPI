@@ -6,8 +6,8 @@ __date__ ="$Dec 28, 2012 1:41:23 PM$"
 
 from LogPointSearcher import LogPointSearcher
 
-searcher = LogPointSearcher()
-
-
-print searcher.get_timezone()
-print '-----------------------'
+def get():
+    searcher = LogPointSearcher()
+    
+    print searcher.get_timezone()
+    print '-----------------------'
