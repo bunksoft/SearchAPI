@@ -21,9 +21,8 @@ class SearchJob:
         from LogPointSearcher import LogPointSearcher
         self._searcher = LogPointSearcher()
         self.search_id = ''
-
+        print "checking the response"
         if response:
-            print "Response String to search job object => ",response,"\nEND"
             self._parse_query(response)
         
         

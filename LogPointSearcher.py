@@ -246,12 +246,15 @@ class LogPointSearcher:
                 }
 
         try:
+            
             ack = requests.post(url, data=data, timeout=10.0, verify=False)
+            print ack,"LogpointSearcger-line251"
+            
         except Exception, e:
             resp = {}
             resp["success"] = False
             resp["message"] = str(e)
-            print resp
+            
             return resp
         
         response = json.loads(ack.content)

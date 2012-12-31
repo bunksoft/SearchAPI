@@ -11,6 +11,7 @@ class Config:
 #        self.username = 'mytest'
 #        self.secret_key = 'a2b29749ff3fcff8c3cb46315627f8b0'
 #        
+#        LI user for 205
 #        self.username = 'ln2khanal'
 #        self.secret_key = '36ad226f539a446f2ce8a98c883d34c5'
 #        

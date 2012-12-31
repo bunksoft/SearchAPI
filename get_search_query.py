@@ -10,14 +10,17 @@ def get():
     searcher = LogPointSearcher()
      
     search_job = searcher.search('error')
-    if search_job.has_error():
-        print 'Query has error'
-        print 'Error Message : ',  search_job.get_error()
+#     LogpointSearcher._get_search_job(query) returns a dictionary when there is error but a response object in success 
+    if type(search_job) is not dict:
+        if search_job.has_error():
+            print 'Query has error'
+            print 'Error Message : ',  search_job.get_error()
+        else:
+            response = search_job.get_response()
+            print response
+        print '-----------------------'
     else:
-        response = search_job.get_response()
-        print response
-    print '-----------------------'
-
+        print search_job.get("message")
 
 
 #query = "error"
