@@ -11,7 +11,6 @@ class LiveSearch:
         self.name = name
         self.query = query
 
-
     def get_response(self):
         '''
         get_response() => returns response object

@@ -224,11 +224,11 @@ class LogPointSearcher:
 
         return ret
 
-    def _get_search_job(self, query):
+    def _get_search_job(self, query,timerange="Last 10 minutes", repo=[], timeout=30, limit=100):
         SEARCH_QUERY = query
-        RESULT_LIMIT = 10
-        SEARCH_TIME_RANGE = "Last 10 minutes"
-        SEARCH_REPOS = []
+        RESULT_LIMIT = limit
+        SEARCH_TIME_RANGE = timerange
+        SEARCH_REPOS = repo
         url = "%s://%s/%s" % (self.request_type, self.ip, "getsearchlogs")
 
         data = {
