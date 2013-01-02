@@ -41,10 +41,12 @@ class Response:
             self._parse_search_type()
 
         if(type == "chart"):
-            self._parse_chart_type()
+            self._parse_chart_timechart_type()
+            self._parse_chart_rows_data()
 
-        if(type == "time"):
-            self._parse_timechart_type()
+        if(type == "timechart"):
+            self._parse_chart_timechart_type()
+            self._parse_timechart_rows_data()
 
 
     def get_rows(self):
@@ -78,10 +80,10 @@ class Response:
     def _parse_search_type(self):
         pass
 
-    def _parse_chart_type(self):
+    def _parse_chart_timechart_type(self):
         '''
         this method is specially created to parse response rows
-        accordin to chart type.
+        according to type chart and timechart.
         '''
         response_string = self.response_string
         self._status = response_string.get('status')
@@ -97,10 +99,9 @@ class Response:
         self._columns = response_string.get('columns')
         self._aliases = response_string.get('aliases')
 
-        self._parse_rows_data()
 
 
-    def _parse_rows_data(self):
+    def _parse_chart_rows_data(self):
         '''
         parse rows data and put it in list
 
@@ -131,6 +132,45 @@ class Response:
                 i += 1
 
             self._rows.append(row_data)
+
+
+    def _parse_timechart_rows_data(self):
+        print 'here'
+        '''
+        parse rows data of timechart type and put it in list
+
+        create list of normalized dictionary
+
+        grouped data are parsed and put into dictionary according
+        to group key name
+        '''
+
+        aliases = self._aliases
+        group_index = self._find_grouping_index('group', aliases)
+        grouping = self._grouping
+
+        for row in self._raw_row:
+            self._count += 1
+            row_data = {}
+            i = 0
+            for item in row:
+                if group_index == i:
+                    j = 1
+                    group_data = {}
+                    for itm in item:
+                        group_data[grouping[j]] = itm
+                        j += 1
+#                    for group in grouping:
+#                        group_data[group] = item[j]
+#                        j += 1
+
+                    row_data[aliases[i]] = group_data
+                else:
+                    row_data[aliases[i]] = item
+                i += 1
+
+            self._rows.append(row_data)
+            
 
     def _find_grouping_index(self, key, list):
         '''

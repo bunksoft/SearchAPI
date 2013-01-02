@@ -5,8 +5,10 @@ __author__="bunkdeath"
 __date__ ="$Dec 28, 2012 1:40:01 PM$"
 
 from LogPointSearcher import LogPointSearcher
-
-def get(query = "| chart count() as Count, sum(sig_id) as SID by device_ip, source_name"):
+# for chart query
+#def get(query = "| chart count() as Count, sum(sig_id) as SID by device_ip, source_name"):
+# for timechart query
+def get(query = "| timechart count() as C, sum(sig_id) as SSID by device_ip, col_type "):
     searcher = LogPointSearcher()
 
     print '\n\n'
