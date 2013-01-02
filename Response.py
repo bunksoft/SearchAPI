@@ -56,21 +56,21 @@ class Response:
         self._columns = response_string.get('columns')
         self._aliases = response_string.get('aliases')
 
-        print '----------------------------------------------'
-        print '\n\n\n\n'
-        print self._status
-        print self._original_search_id
-        print self._total_count
-        print self._raw_row
-        print self._extra_fields
-        print self._time_range
-        print self._elapsed_time
-        print self._version
-        print self._grouping
-        print self._final
-        print self._columns
-        print self._aliases
-        pass
+#        print '----------------------------------------------'
+#        print '\n\n\n\n'
+#        print self._status
+#        print self._original_search_id
+#        print self._total_count
+#        print self._raw_row
+#        print self._extra_fields
+#        print self._time_range
+#        print self._elapsed_time
+#        print self._version
+#        print self._grouping
+#        print self._final
+#        print self._columns
+#        print self._aliases
+#        pass
 
     def get_rows(self):
         '''
@@ -92,4 +92,4 @@ class Response:
 
     def iterate(self):
         rows = Rows(self)
-        pass
+        return rows

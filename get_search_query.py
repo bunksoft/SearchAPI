@@ -23,7 +23,13 @@ def get(query = "| chart count() as Count, sum(sig_id) as SID by device_ip, sour
             print 'Getting response from SearchJob'
             print '\n'
             response = search_job.get_response()
-            return response
-        print '-----------------------'
+            total_count = 0
+            i = response.iterate()
+            while i.has_next():
+                dic =  i.next()
+                for key in dic.keys():
+                    print key, ': ', dic[key]
+                print '\n\n'
+
     else:
         print search_job.get("message")

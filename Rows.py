@@ -9,33 +9,53 @@ class Rows:
         self._response = response
         self._index = 0
         self._count = 0
-
         self._rows = []
         
         self._parse()
-        pass
 
     def has_next(self):
-        if self._index == self._count:
-            pass
+        if self._index < self._count:
+            return True
+        else:
+            return False
         pass
 
     def next(self):
-        pass
+        if self._index < self._count:
+            ret = self._rows[self._index]
+            self._index += 1
+            return ret
+        else:
+            return 'Sorry, no more data'
 
     def get_rows(self):
         pass
 
+    def reset(self):
+        self._index = 0
+
 
 
     def _parse(self):
-        aliases = self._response.get('aliases')
-        for row in self._response.get('rows'):
+        aliases = self._response._aliases
+        group_index = self._find_grouping_index('group', aliases)
+        grouping = self._response._grouping
+        
+        for row in self._response._raw_row:
             self._count += 1
-            row = {}
+            row_data = {}
             i = 0
             for item in row:
-                row[aliases[i]] = item
+                row_data[aliases[i]] = item
                 i += 1
 
-            self._rows.append(row)
+            self._rows.append(row_data)
+
+    def _find_grouping_index(self, key, list):
+        index = 0
+        for item in list:
+            if item == key:
+                return index
+            index += 1
+
+        return -1
