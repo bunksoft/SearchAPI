@@ -286,5 +286,5 @@ class LogPointSearcher:
 
             if not response:
                 return {"success":False, "message":"No data from merger"}
-
+            
             return response

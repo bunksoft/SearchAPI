@@ -6,7 +6,7 @@ __date__ ="$Dec 28, 2012 1:40:01 PM$"
 
 from LogPointSearcher import LogPointSearcher
 
-def get(query = "error"):
+def get(query = "| chart count() as Count, sum(sig_id) as SID by device_ip, source_name"):
     searcher = LogPointSearcher()
 
     print '\n\n'
@@ -23,6 +23,7 @@ def get(query = "error"):
             print 'Getting response from SearchJob'
             print '\n'
             response = search_job.get_response()
+            return response
         print '-----------------------'
     else:
         print search_job.get("message")

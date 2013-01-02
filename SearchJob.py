@@ -53,7 +53,7 @@ class SearchJob:
         response_string = self._searcher.get_response(self.search_id)
         response = Response(response_string)
     
-        return response_string
+        return response
 
     def get_type(self):
         self._type
