@@ -46,7 +46,16 @@ class Rows:
             row_data = {}
             i = 0
             for item in row:
-                row_data[aliases[i]] = item
+                if group_index == i:
+                    j = 0
+                    group_data = {}
+                    for group in grouping:
+                        group_data[group] = item[j]
+                        j += 1
+                        
+                    row_data[aliases[i]] = group_data
+                else:
+                    row_data[aliases[i]] = item
                 i += 1
 
             self._rows.append(row_data)
