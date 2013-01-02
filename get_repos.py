@@ -15,7 +15,11 @@ def get():
     else:
         for logpoint in logpoints:
             print logpoint
-        repos = searcher.get_repos([logpoints[0]])
+
+        print '\n\n'
+        print 'Getting Repos from ', logpoints[1]
+        print '\n'
+        repos = searcher.get_repos([logpoints[1]])
     
         if type(repos) is dict:
             if not repos.get('success'):

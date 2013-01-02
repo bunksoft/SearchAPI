@@ -14,12 +14,17 @@ def get():
         if not logpoints.get('success'):
             print 'Error : ', logpoints.get('message')
     else:
+        print '\n\nGetting all allowed logpoints'
+        print '-------------------------------'
         for logpoint in logpoints:
             print logpoint
     
         print
         print
         print
+
+        print 'Getting allowed repos from each logpoints\n\n'
+        print '-----------------------------------------'
     
         for logpoint in logpoints:
             repos = logpoint.get_repos()
