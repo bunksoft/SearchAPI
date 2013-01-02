@@ -13,8 +13,22 @@ def get():
         if not logpoints.get('success'):
             print 'Error : ', logpoints.get('message')
     else:
-        for logpoint in logpoints:
-            print logpoint
+#        for logpoint in logpoints:
+#            print logpoint
+
+        print '\n\n'
+        print 'Getting all allowed Repos'
+        print '\n'
+        
+        repos = searcher.get_repos()
+        if type(repos) is dict:
+            if not repos.get('success'):
+                print 'Something went wrong'
+                print '\t', repos.get('message')
+        else:
+            for repo in repos:
+                print repo
+        print '-----------------------'
 
         print '\n\n'
         print 'Getting Repos from ', logpoints[1]

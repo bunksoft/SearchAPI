@@ -13,6 +13,24 @@ def get():
         if not logpoints.get('success'):
             print 'Error : ', logpoints.get('message')
     else:
+        print '\n\n'
+        print 'Searching for all allowed Devices'
+        print '\n'
+        devices = searcher.get_devices()
+        if type(devices) is dict:
+            if not devices.get('success'):
+                print 'Something went wrong'
+                print '\t', devices.get('message')
+        else:
+            for device in devices:
+                print device
+        print '-----------------------'
+        
+
+        print '\n\n'
+        print 'Searching Devices from ', logpoints[0]
+        print '\n'
+        
         devices = searcher.get_devices([logpoints[0]])
         if type(devices) is dict:
             if not devices.get('success'):

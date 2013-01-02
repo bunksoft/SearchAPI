@@ -8,6 +8,7 @@ from LogPointSearcher import LogPointSearcher
 
 def get():
     searcher = LogPointSearcher()
-    
+
+    print 'Getting Logpoint TimeZone'
     print searcher.get_timezone()
     print '-----------------------'

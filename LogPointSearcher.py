@@ -248,7 +248,7 @@ class LogPointSearcher:
         try:
             
             ack = requests.post(url, data=data, timeout=10.0, verify=False)#verify = True =>SSL certificate will be verified.
-            print ack,"LogpointSearcger-line251"
+            print ack.content,"LogpointSearcger-line251"
             
         except Exception, e:
             resp = {}

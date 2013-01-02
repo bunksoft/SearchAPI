@@ -10,5 +10,5 @@ import get_search_query
 #get_repos.get()
 #get_devices.get()
 #get_timezone.get()
-#get_livesearch.get()
+get_livesearch.get()
 #get_search_query.get()

@@ -18,22 +18,3 @@ def get():
         print '-------------------------------'
         for logpoint in logpoints:
             print logpoint
-    
-        print
-        print
-        print
-
-        print 'Getting allowed repos from each logpoints\n\n'
-        print '-----------------------------------------'
-    
-        for logpoint in logpoints:
-            repos = logpoint.get_repos()
-    
-            if type(repos) is dict:
-                if not repos.get('success'):
-                    print 'Something went wrong'
-                    print '\t', repos.get('message')
-            else:
-                for repo in repos:
-                    print repo
-            print '-----------------------'
