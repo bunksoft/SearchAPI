@@ -1,10 +1,10 @@
-'''
-Created on Dec 24, 2012
+__author__="bunkdeath"
+__date__ ="$Jan 2, 2013 3:17:18 PM$"
 
-@author: mama
-'''
+from Rows import Rows
+
 class Response:
-    
+
     def __init__(self, response_string):
         """
         """
@@ -22,7 +22,7 @@ class Response:
         self._columns = []
         self._aliases = []
 
-        
+
         self.response_string = response_string
         self.data = {}
         type = self.response_string.get('type');
@@ -31,7 +31,7 @@ class Response:
 
         if(type == "chart"):
             self._parse_chart_type()
-            
+
         if(type == "time"):
             self._parse_timechart_type()
 
@@ -91,4 +91,5 @@ class Response:
         return self._raw_row
 
     def iterate(self):
+        rows = Rows(self)
         pass

@@ -5,14 +5,19 @@ __author__="bunkdeath"
 __date__ ="$Jan 2, 2013 1:52:58 PM$"
 
 class Rows:
-    def __init__(self, raw_rows):
-        self._raw_rows = raw_rows
+    def __init__(self, response):
+        self._response = response
+        self._index = 0
+        self._count = 0
 
+        self._rows = []
         
         self._parse()
         pass
 
     def has_next(self):
+        if self._index == self._count:
+            pass
         pass
 
     def next(self):
@@ -24,5 +29,13 @@ class Rows:
 
 
     def _parse(self):
-        
-        pass
+        aliases = self._response.get('aliases')
+        for row in self._response.get('rows'):
+            self._count += 1
+            row = {}
+            i = 0
+            for item in row:
+                row[aliases[i]] = item
+                i += 1
+
+            self._rows.append(row)
