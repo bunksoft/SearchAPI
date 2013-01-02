@@ -14,7 +14,6 @@ def get(query = "error"):
     print '\n'
     search_job = searcher.search(query)
     print '\n\n'
-#     LogpointSearcher._get_search_job(query) returns a dictionary when there is error but a response object in success 
     if type(search_job) is not dict:
         if search_job.has_error():
             print 'Query has error'
@@ -24,25 +23,6 @@ def get(query = "error"):
             print 'Getting response from SearchJob'
             print '\n'
             response = search_job.get_response()
-            print response
         print '-----------------------'
     else:
         print search_job.get("message")
-
-
-#query = "error"
-#logpoint = LogPoint("10.45.1.1")
-#repos = [Repo("_loginspect", logpoint), Repo("default", logpoint)]
-#time_range = "Last 10 minutes"
-#
-#search_job = searcher.search(query=query, repos=repos, time_range=time_range, timeout=30, limit=100)
-#
-#print search_job.has_error()
-#print search_job.get_error()
-#print search_job.get_response()
-#print search_job.get_type()
-#print search_job.is_timeout()
-#print search_job.get_time_range()
-#search_job.cancel()
-#    pass
-#print search_job

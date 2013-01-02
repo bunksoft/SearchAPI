@@ -11,7 +11,6 @@ from LogPoint import LogPoint
 from Device import Device
 from SearchJob import SearchJob
 from Repos import Repo
-from Response import Response
 from LiveSearch import LiveSearch
 
 
@@ -248,7 +247,7 @@ class LogPointSearcher:
         try:
             
             ack = requests.post(url, data=data, timeout=10.0, verify=False)#verify = True =>SSL certificate will be verified.
-            print ack.content,"LogpointSearcger-line251"
+            print ack.content
             
         except Exception, e:
             resp = {}
@@ -276,9 +275,9 @@ class LogPointSearcher:
 
             start_time = time.time()
             response = {}
-            i = 1
             while time.time() - start_time < 10.0:
                 ack = requests.post(url, data=data, timeout=10.0, verify=False)
+                print ack.content
                 res = json.loads(ack.content)
                 if res.get('success'):
                     response = res

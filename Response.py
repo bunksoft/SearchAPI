@@ -9,7 +9,6 @@ class Response:
         """
         """
         self.data = {}
-        print "response_string-Response.py-line12 =>",response_string
         if (response_string["type"] == "search"):
             self.search(response_string)
             
