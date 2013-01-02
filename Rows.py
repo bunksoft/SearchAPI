@@ -5,15 +5,20 @@ __author__="bunkdeath"
 __date__ ="$Jan 2, 2013 1:52:58 PM$"
 
 class Rows:
-    def __init__(self, response):
-        self._response = response
+    def __init__(self, rows):
+        '''
+        rows is the list of row normalized into unit row
+        '''
         self._index = 0
-        self._count = 0
-        self._rows = []
-        
-        self._parse()
+        self._count = len(rows)
+        self._rows = rows
+
 
     def has_next(self):
+        '''
+        this method checks if there is any more data left
+        in the list
+        '''
         if self._index < self._count:
             return True
         else:
@@ -21,6 +26,10 @@ class Rows:
         pass
 
     def next(self):
+        '''
+        this method returns next data from row
+        where current curser is present
+        '''
         if self._index < self._count:
             ret = self._rows[self._index]
             self._index += 1
@@ -28,43 +37,9 @@ class Rows:
         else:
             return 'Sorry, no more data'
 
-    def get_rows(self):
-        pass
-
     def reset(self):
+        '''
+        this method is created in case one wants
+        to retrieve data from beginning for testing
+        '''
         self._index = 0
-
-
-
-    def _parse(self):
-        aliases = self._response._aliases
-        group_index = self._find_grouping_index('group', aliases)
-        grouping = self._response._grouping
-        
-        for row in self._response._raw_row:
-            self._count += 1
-            row_data = {}
-            i = 0
-            for item in row:
-                if group_index == i:
-                    j = 0
-                    group_data = {}
-                    for group in grouping:
-                        group_data[group] = item[j]
-                        j += 1
-                        
-                    row_data[aliases[i]] = group_data
-                else:
-                    row_data[aliases[i]] = item
-                i += 1
-
-            self._rows.append(row_data)
-
-    def _find_grouping_index(self, key, list):
-        index = 0
-        for item in list:
-            if item == key:
-                return index
-            index += 1
-
-        return -1

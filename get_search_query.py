@@ -24,6 +24,19 @@ def get(query = "| chart count() as Count, sum(sig_id) as SID by device_ip, sour
             print '\n'
             response = search_job.get_response()
             total_count = 0
+
+            rows = response.get_rows()
+            print '\n\n'
+            print 'Displaying data from list returned from get_rows()'
+            print '\n\n'
+
+            for row in rows:
+                print row
+
+            print '\n\n'
+            print 'Iterative process for search response'
+            print '\n\n'
+
             i = response.iterate()
             while i.has_next():
                 dic =  i.next()

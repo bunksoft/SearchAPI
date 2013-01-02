@@ -7,6 +7,11 @@ class Response:
 
     def __init__(self, response_string):
         """
+        takes string response from search query
+
+        determines the types of search query(simple, chart, timechart)
+
+        parse response rows accordingly
         """
         # extracted from chart
         self._status = ''
@@ -23,6 +28,12 @@ class Response:
         self._aliases = []
 
 
+        # values except in response
+        self._index = 0
+        self._count = 0
+        self._rows = []
+
+
         self.response_string = response_string
         self.data = {}
         type = self.response_string.get('type');
@@ -36,12 +47,42 @@ class Response:
             self._parse_timechart_type()
 
 
+    def get_rows(self):
+        '''
+        when this method is called, it returns the
+        Rows object that hold
+            """
+            get rows iteratively
+            get complete data at once
+            """
+        '''
+        return self._rows
+
+    def get_raw_rows(self):
+        '''
+        this method upon called, returns raw row data that was
+        returned in response as it is
+        '''
+        return self._raw_row
+
+
+    def iterate(self):
+        '''
+        this method creates iterative way of accessing rows data
+        '''
+        rows = Rows(self._rows)
+        return rows
+
+
 
     def _parse_search_type(self):
         pass
 
     def _parse_chart_type(self):
-        print 'chat type'
+        '''
+        this method is specially created to parse response rows
+        accordin to chart type.
+        '''
         response_string = self.response_string
         self._status = response_string.get('status')
         self._original_search_id = response_string.get('orig_search_id')
@@ -56,40 +97,51 @@ class Response:
         self._columns = response_string.get('columns')
         self._aliases = response_string.get('aliases')
 
-#        print '----------------------------------------------'
-#        print '\n\n\n\n'
-#        print self._status
-#        print self._original_search_id
-#        print self._total_count
-#        print self._raw_row
-#        print self._extra_fields
-#        print self._time_range
-#        print self._elapsed_time
-#        print self._version
-#        print self._grouping
-#        print self._final
-#        print self._columns
-#        print self._aliases
-#        pass
+        self._parse_rows_data()
 
-    def get_rows(self):
-        '''
-        when this method is called, it returns the
-        Rows object that hold
-            """
-            get rows iteratively
-            get complete data at once
-            """
-        '''
-        pass
 
-    def get_raw_rows(self):
+    def _parse_rows_data(self):
         '''
-        this method upon called, returns raw row data that was
-        returned in response as it is
-        '''
-        return self._raw_row
+        parse rows data and put it in list
 
-    def iterate(self):
-        rows = Rows(self)
-        return rows
+        create list of normalized dictionary
+
+        grouped data are parsed and put into dictionary according
+        to group key name
+        '''
+        aliases = self._aliases
+        group_index = self._find_grouping_index('group', aliases)
+        grouping = self._grouping
+
+        for row in self._raw_row:
+            self._count += 1
+            row_data = {}
+            i = 0
+            for item in row:
+                if group_index == i:
+                    j = 0
+                    group_data = {}
+                    for group in grouping:
+                        group_data[group] = item[j]
+                        j += 1
+
+                    row_data[aliases[i]] = group_data
+                else:
+                    row_data[aliases[i]] = item
+                i += 1
+
+            self._rows.append(row_data)
+
+    def _find_grouping_index(self, key, list):
+        '''
+        this method finds the index of grouped index from response rows
+
+        help in creating dictionary for grouped data
+        '''
+        index = 0
+        for item in list:
+            if item == key:
+                return index
+            index += 1
+
+        return -1
