@@ -6,7 +6,7 @@ import get_livesearch
 import get_search_query
 
 
-#get_logpoints.get()
+get_logpoints.get()
 #print '------------------'
 #print '\n\n'
 #print '------------------'
