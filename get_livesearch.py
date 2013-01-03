@@ -3,31 +3,25 @@
 
 __author__="bunkdeath"
 __date__ ="$Dec 28, 2012 1:45:13 PM$"
-
+from Error import Error
 from LogPointSearcher import LogPointSearcher
 def get():
     '''get() => response object of live search.
      
     '''
     searcher = LogPointSearcher()
-    
     livesearches  = searcher.get_live_searches()
-    if type(livesearches) is dict:
-        if not livesearches.get("success"):
-            print livesearches.get("message")
+    
+    print "__________Live search Details_________:"
+    if isinstance(livesearches,Error):
+        print livesearches.get_error_message()
     else:
-#################################################
-        print len(livesearches)
-        count = 0
-#################################################
-        if len(livesearches) > 0:
-            print "Live search Details:"
-            for livesearch in livesearches:
-
-                print "\n Livesearch-id[life_id] =>",livesearch.id,"\n" \
-                "\n Livesearch-query => ",livesearch.query,"\n" \
-                "\n Livesearch-name => ",livesearch.name,"\n"
-
+        for livesearch in livesearches:
+            if not isinstance(livesearch,Error):
+                print "\n Livesearch-id[life_id] =>",livesearch.get_id(),"\n" \
+                "\n Livesearch-query => ",livesearch.get_query(),"\n" \
+                "\n Livesearch-name => ",livesearch.get_name(),"\n"
+    
                 response = livesearch.get_response()
                 if type(response) is dict:
                     print "\n\n\nError\t\t\t\t\n\n\n",response,"\n\n\n\n"
@@ -43,17 +37,12 @@ def get():
                     print '\n\n'
                     print 'Iterative process for search response'
                     print '\n\n'
-        
-                    i = response.iterate()
-                    while i.has_next():
-                        dic =  i.next()
-                        for key in dic.keys():
-                            print key, ': ', dic[key]
-                        print '\n\n'
-###########################################################################################
-                    print count
-                    count += 1
-                    print '###############################################################'
-
-        else:
-            print "Nothing found for your search"
+    
+                i = response.iterate()
+                while i.has_next():
+                    dic =  i.next()
+                    for key in dic.keys():
+                        print key, ': ', dic[key]
+                    print '\n\n'
+            else:
+                print livesearch.get_error_message()

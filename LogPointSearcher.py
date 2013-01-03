@@ -12,7 +12,7 @@ from Device import Device
 from SearchJob import SearchJob
 from Repos import Repo
 from LiveSearch import LiveSearch
-
+from Error import Error
 
 class LogPointSearcher:
     '''
@@ -166,15 +166,17 @@ class LogPointSearcher:
         '''
         
         live_searches_lists = []
-        
-        live_searches =  self._get_allowed_data('livesearches')
-        if live_searches.get("success"):
-            for live_search in live_searches["livesearches"]:
-                live_searches_lists.append(LiveSearch(live_search["life_id"],live_search["searchname"],live_search["query"]))#,"livesearch"))
-
-            return live_searches_lists
-        else:
-            return live_searches
+        try:
+            live_searches =  self._get_allowed_data('livesearches')
+            if live_searches.get("success"):
+                for live_search in live_searches["livesearches"]:
+                    live_searches_lists.append(LiveSearch(live_search["life_id"],live_search["searchname"],live_search["query"]))#,"livesearch"))
+                return live_searches_lists
+            else:
+                return Error(live_searches["message"])
+        except Exception, e:
+            
+            return Error(str(e))
 
     def get_timezone(self):
         '''
