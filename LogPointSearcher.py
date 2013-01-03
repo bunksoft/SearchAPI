@@ -216,10 +216,11 @@ class LogPointSearcher:
 
         ret = ''
         try:
-            print ack.content
+#            print ack.content
             ret = json.loads(ack.content)
         except:
-            print ack.content
+            pass
+#            print ack.content
 
         return ret
 
@@ -247,7 +248,7 @@ class LogPointSearcher:
         try:
             
             ack = requests.post(url, data=data, timeout=10.0, verify=False)#verify = True =>SSL certificate will be verified.
-            print ack.content
+#            print ack.content
             
         except Exception, e:
             resp = {}
@@ -277,7 +278,7 @@ class LogPointSearcher:
             response = {}
             while time.time() - start_time < 10.0:
                 ack = requests.post(url, data=data, timeout=10.0, verify=False)
-                print ack.content
+#                print ack.content
                 res = json.loads(ack.content)
                 if res.get('success'):
                     response = res

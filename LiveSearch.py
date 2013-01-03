@@ -1,6 +1,7 @@
 __author__="bunkdeath"
 __date__ ="$Dec 21, 2012 1:56:50 PM$"
 
+from Response import Response
 
 class LiveSearch:
     
@@ -24,11 +25,7 @@ class LiveSearch:
         from LogPointSearcher import LogPointSearcher
         searcher = LogPointSearcher()
          
-        search_job = searcher.get_response(self.id)
-        if type(search_job) is dict:
-            return search_job
-        else:
-            self.response = search_job.get_response()
-
-            return self.response
+        response_string = searcher.get_response(self.id)
+        
+        return Response(response_string)
         
