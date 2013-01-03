@@ -13,20 +13,20 @@ def get():
     
     livesearches  = searcher.get_live_searches()
     if type(livesearches) is dict:
-    #    later needs to create a SearchJob object.
         if not livesearches.get("success"):
             print "Something went wrong."
     else:
         if len(livesearches) > 0:
-            print "Livesearches Details:"
+            print "Live search Details:"
             for livesearch in livesearches:
-                print "\n Livesearch id[life_id] =>",livesearch.id,"\n" \
-                "\n Livesearch query => ",livesearch.query,"\n" \
-                "\n Livesearch name => ",livesearch.name,"\n"
-#                livesearch.get_response()
+
+                print "\n Livesearch-id[life_id] =>",livesearch.id,"\n" \
+                "\n Livesearch-query => ",livesearch.query,"\n" \
+                "\n Livesearch-name => ",livesearch.name,"\n"
+
                 response = livesearch.get_response()
                 if type(response) is dict:
-                    print "\n\n\nError--Lekhnath\t\t\t\t\n\n\n",response,"\n\n\n\n"
+                    print "\n\n\nError\t\t\t\t\n\n\n",response,"\n\n\n\n"
                 else:
                     rows = response.get_rows()
                     print '\n\n'
