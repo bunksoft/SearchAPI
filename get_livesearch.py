@@ -18,11 +18,31 @@ def get():
             print "Something went wrong."
     else:
         if len(livesearches) > 0:
+            print "Livesearches Details:"
             for livesearch in livesearches:
+                print "\n Livesearch id[life_id] =>",livesearch.id,"\n" \
+                "\n Livesearch query => ",livesearch.query,"\n" \
+                "\n Livesearch name => ",livesearch.name,"\n"
 #                livesearch.get_response()
-                response_object = livesearch.get_response()
-                print "\n Printing the response for live search."
-                print response_object
-#                response_object.get_response()
+                response = livesearch.get_response()
+                rows = response.get_rows()
+                print '\n\n'
+                print 'Displaying data from list returned from get_rows()'
+                print '\n\n'
+    
+                for row in rows:
+                    print row
+    
+                print '\n\n'
+                print 'Iterative process for search response'
+                print '\n\n'
+    
+                i = response.iterate()
+                while i.has_next():
+                    dic =  i.next()
+                    for key in dic.keys():
+                        print key, ': ', dic[key]
+                    print '\n\n'
+
         else:
             print "Nothing found for your search"
