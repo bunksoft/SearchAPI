@@ -17,6 +17,10 @@ class SearchJob:
         self._is_cancel = True
         self._timerange = ''
 
+        self._response = None
+
+        self._is_first_call = True
+
         #extra added items
         from LogPointSearcher import LogPointSearcher
         self._searcher = LogPointSearcher()
@@ -50,10 +54,13 @@ class SearchJob:
         return self._is_final
 
     def get_response(self):
-        response_string = self._searcher.get_response(self.search_id)
-        response = Response(response_string)
+        if not self._response:
+            response_string = self._searcher.get_response(self.search_id)
+        else:
+            response_string = self._searcher.get_response(self.search_id, self._response.get_version())
+        self._response = Response(response_string)
     
-        return response
+        return self._response
 
     def get_type(self):
         self._type

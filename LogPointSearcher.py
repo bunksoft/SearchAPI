@@ -114,7 +114,7 @@ class LogPointSearcher:
         for repo in allowed_repos:
             address, repo_name = repo.get('address').split('/')
             logpoint_ip, port = address.split(':')
-            repos.append(Repo(logpoint[logpoint_ip].get_name(), repo_name))
+            repos.append(Repo(logpoint[logpoint_ip], repo_name))
         return repos
 
     def get_devices(self, logpoint=None):
@@ -191,7 +191,7 @@ class LogPointSearcher:
         Returns SearchJob object
         '''
 
-        return self._get_search_job(query)
+        return self._get_search_job(query, timerange, repo, timeout, limit)
 
     def _get_allowed_data(self, data_type, logpoints=None):
         url = "%s://%s/%s" % (self.request_type, self.ip, "getalloweddata")
@@ -203,7 +203,6 @@ class LogPointSearcher:
                 "logpoints": json.dumps(logpoints)
                 }
 
-        print data
 
         try:
             ack = requests.post(url, data=data, timeout=10.0, verify=False)
@@ -211,12 +210,10 @@ class LogPointSearcher:
             resp = {}
             resp["success"] = False
             resp["message"] = str(e)
-            print resp
             return resp
 
         ret = ''
         try:
-#            print ack.content
             ret = json.loads(ack.content)
         except:
             pass
@@ -224,11 +221,30 @@ class LogPointSearcher:
 
         return ret
 
-    def _get_search_job(self, query,timerange="Last 10 minutes", repo=[], timeout=30, limit=10):
+
+    def _get_search_job(self, query, timerange=None, repo=None, timeout=None, limit=None):
         SEARCH_QUERY = query
-        RESULT_LIMIT = limit
-        SEARCH_TIME_RANGE = timerange
-        SEARCH_REPOS = repo
+        
+        if not timerange:
+            SEARCH_TIME_RANGE = 'Last 10 minutes'
+        else:
+            SEARCH_TIME_RANGE = timerange
+
+        if not repo:
+            # TODO
+            # check if repo is list of string or repo object
+            SEARCH_REPOS = []
+        else:
+            SEARCH_REPOS = repo
+
+        if not timeout:
+            timeout = 10
+
+        if not limit:
+            RESULT_LIMIT = 30
+        else:
+            RESULT_LIMIT = limit
+
         url = "%s://%s/%s" % (self.request_type, self.ip, "getsearchlogs")
 
         data = {
@@ -246,9 +262,7 @@ class LogPointSearcher:
                 }
 
         try:
-            
             ack = requests.post(url, data=data, timeout=10.0, verify=False)#verify = True =>SSL certificate will be verified.
-#            print ack.content
             
         except Exception, e:
             resp = {}
@@ -261,7 +275,9 @@ class LogPointSearcher:
         return SearchJob(response)
         
 
-    def get_response(self, search_id):
+    def get_response(self, search_id, version=None):
+        if not version:
+            version = 0
         url = "%s://%s/%s" % (self.request_type, self.ip, "getsearchlogs")
         if search_id:
             data = {
@@ -270,7 +286,7 @@ class LogPointSearcher:
                 "requestData": json.dumps({
                            "search_id": search_id,
                            "waiter_id": "%s" % time.time(),
-                           "seen_version": 0
+                           "seen_version": version
                            })
                 }
 
@@ -279,7 +295,6 @@ class LogPointSearcher:
             while time.time() - start_time < 10.0:
                 try:
                     ack = requests.post(url, data=data, timeout=10.0, verify=False)
-    #                print ack.content
                     res = json.loads(ack.content)
                     if res.get('success'):
                         response = res
