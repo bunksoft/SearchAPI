@@ -277,13 +277,18 @@ class LogPointSearcher:
             start_time = time.time()
             response = {}
             while time.time() - start_time < 10.0:
-                ack = requests.post(url, data=data, timeout=10.0, verify=False)
-#                print ack.content
-                res = json.loads(ack.content)
-                if res.get('success'):
-                    response = res
-                if res['final'] == True:
-                    break
+                try:
+                    ack = requests.post(url, data=data, timeout=10.0, verify=False)
+    #                print ack.content
+                    res = json.loads(ack.content)
+                    if res.get('success'):
+                        response = res
+                    if res['final'] == True:
+                        break
+                except Exception, e:
+                    error = {}
+                    error['success'] = False
+                    error['message'] = str(e)
 
             if not response:
                 return {"success":False, "message":"No data from merger"}
