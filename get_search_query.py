@@ -5,10 +5,14 @@ __author__="bunkdeath"
 __date__ ="$Dec 28, 2012 1:40:01 PM$"
 
 from LogPointSearcher import LogPointSearcher
-# for chart query
-#def get(query = "| chart count() as Count, sum(sig_id) as SID by device_ip, source_name"):
-# for timechart query
-def get(query = "| timechart count() as C, sum(sig_id) as SSID by device_ip, col_type "):
+
+def get():
+####for chart query
+#    def get(query = "| chart count() as Count, sum(sig_id) as SID by device_ip, source_name"):
+####for timechart query
+#    query = "| timechart count() as C, sum(sig_id) as SSID by device_ip, col_type"
+####for log search
+    query = 'error'
     searcher = LogPointSearcher()
 
     print '\n\n'
@@ -25,7 +29,6 @@ def get(query = "| timechart count() as C, sum(sig_id) as SSID by device_ip, col
             print 'Getting response from SearchJob'
             print '\n'
             response = search_job.get_response()
-            total_count = 0
 
             rows = response.get_rows()
             print '\n\n'
