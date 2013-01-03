@@ -27,6 +27,10 @@ class Response:
         self._columns = []
         self._aliases = []
 
+        # extracted from simple search query
+        self._next_starts = ''
+        self._fields = ''
+
 
         # values except in response
         self._index = 0
@@ -39,6 +43,7 @@ class Response:
         type = self.response_string.get('type');
         if (type == "search"):
             self._parse_search_type()
+            self._parse_simple_rows_data()
 
         if(type == "chart"):
             self._parse_chart_timechart_type()
@@ -78,7 +83,23 @@ class Response:
 
 
     def _parse_search_type(self):
-        pass
+        '''
+        this method is specially created to parse response rows
+        according to type simple search
+        '''
+        response_string = self.response_string
+        self._status = response_string.get('status')
+        self._original_search_id = response_string.get('orig_search_id')
+        self._total_count = response_string.get('estim_count')
+        self._raw_row = response_string.get('rows')
+        self._fields = response_string.get('fields')
+        self._time_range = response_string.get('time_range')
+        self._elapsed_time = response_string.get('elapsed_seconds')
+        self._version = response_string.get('version')
+        self._next_starts = response_string.get('next_starts')
+        self._final = response_string.get('final')
+
+
 
     def _parse_chart_timechart_type(self):
         '''
@@ -99,6 +120,18 @@ class Response:
         self._columns = response_string.get('columns')
         self._aliases = response_string.get('aliases')
 
+
+    def _parse_simple_rows_data(self):
+        '''
+        parse rows data and put it in list
+
+        create list of normalized dictionary
+
+        grouped data are parsed and put into dictionary according
+        to group key name
+        '''
+        for row in self._raw_row:
+            self._rows.append(row)
 
 
     def _parse_chart_rows_data(self):
@@ -160,9 +193,6 @@ class Response:
                     for itm in item:
                         group_data[grouping[j]] = itm
                         j += 1
-#                    for group in grouping:
-#                        group_data[group] = item[j]
-#                        j += 1
 
                     row_data[aliases[i]] = group_data
                 else:
