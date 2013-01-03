@@ -171,10 +171,10 @@ class LogPointSearcher:
         if live_searches.get("success"):
             for live_search in live_searches["livesearches"]:
                 live_searches_lists.append(LiveSearch(live_search["life_id"],live_search["searchname"],live_search["query"]))#,"livesearch"))
-        else:
+
             return live_searches_lists
-                
-        return live_searches_lists
+        else:
+            return live_searches
 
     def get_timezone(self):
         '''

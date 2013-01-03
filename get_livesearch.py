@@ -14,8 +14,12 @@ def get():
     livesearches  = searcher.get_live_searches()
     if type(livesearches) is dict:
         if not livesearches.get("success"):
-            print "Something went wrong."
+            print livesearches.get("message")
     else:
+#################################################
+        print len(livesearches)
+        count = 0
+#################################################
         if len(livesearches) > 0:
             print "Live search Details:"
             for livesearch in livesearches:
@@ -46,6 +50,10 @@ def get():
                         for key in dic.keys():
                             print key, ': ', dic[key]
                         print '\n\n'
+###########################################################################################
+                    print count
+                    count += 1
+                    print '###############################################################'
 
         else:
             print "Nothing found for your search"
