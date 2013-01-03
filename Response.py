@@ -54,6 +54,13 @@ class Response:
             self._parse_timechart_rows_data()
 
 
+    def is_final(self):
+        return self._final
+
+    def get_version(self):
+        return self._version
+
+    
     def get_rows(self):
         '''
         when this method is called, it returns the

@@ -6,13 +6,13 @@ Created on Dec 21, 2012
 
 class Repo:
     
-    def __init__(self, logpoint_name, repo_name):
+    def __init__(self, logpoint, repo_name):
         """
         logpoint is logpoint object
         """
-        self._logpoint_name = logpoint_name
+        self._logpoint = logpoint
         self._repo_name = repo_name
-        self._display_name = "%s/%s" % (logpoint_name, repo_name)
+        self._display_name = "%s/%s" % (logpoint.get_name(), repo_name)
 
     def get_logpoint_name(self):
         '''
@@ -25,3 +25,7 @@ class Repo:
     
     def __str__(self):
         return self._display_name
+
+
+    def get_search_format(self):
+        return "%s:5504/%s" % (self._logpoint.get_ip(), self._repo_name)
