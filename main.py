@@ -22,9 +22,9 @@ import get_search_query
 #print '------------------'
 #print '\n\n'
 #print '------------------'
-response = get_search_query.get()
+#response = get_search_query.get()
 
 #print '------------------'
 #print '\n\n'
 #print '------------------'
-#get_livesearch.get()
+get_livesearch.get()

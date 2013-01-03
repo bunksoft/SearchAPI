@@ -21,7 +21,7 @@ class LiveSearch:
         searcher = LogPointSearcher()
          
         search_job = searcher.search(self.query)
-        self.response = search_job.get_response
+        self.response = search_job.get_response()
 #        if type(search_job) is not dict:
 #            if search_job.has_error():
 #                print 'Query has error'

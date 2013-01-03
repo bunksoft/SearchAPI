@@ -6,6 +6,9 @@ __date__ ="$Dec 28, 2012 1:45:13 PM$"
 
 from LogPointSearcher import LogPointSearcher
 def get():
+    '''get() => response object of live search.
+     
+    '''
     searcher = LogPointSearcher()
     
     livesearches  = searcher.get_live_searches()
@@ -17,6 +20,9 @@ def get():
         if len(livesearches) > 0:
             for livesearch in livesearches:
 #                livesearch.get_response()
-                print livesearch
+                response_object = livesearch.get_response()
+                print "\n Printing the response for live search."
+                print response_object
+#                response_object.get_response()
         else:
             print "Nothing found for your search"
