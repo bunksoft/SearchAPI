@@ -25,24 +25,27 @@ def get():
                 "\n Livesearch name => ",livesearch.name,"\n"
 #                livesearch.get_response()
                 response = livesearch.get_response()
-                rows = response.get_rows()
-                print '\n\n'
-                print 'Displaying data from list returned from get_rows()'
-                print '\n\n'
-    
-                for row in rows:
-                    print row
-    
-                print '\n\n'
-                print 'Iterative process for search response'
-                print '\n\n'
-    
-                i = response.iterate()
-                while i.has_next():
-                    dic =  i.next()
-                    for key in dic.keys():
-                        print key, ': ', dic[key]
+                if type(response) is dict:
+                    print "\n\n\nError--Lekhnath\t\t\t\t\n\n\n",response,"\n\n\n\n"
+                else:
+                    rows = response.get_rows()
                     print '\n\n'
+                    print 'Displaying data from list returned from get_rows()'
+                    print '\n\n'
+        
+                    for row in rows:
+                        print row
+        
+                    print '\n\n'
+                    print 'Iterative process for search response'
+                    print '\n\n'
+        
+                    i = response.iterate()
+                    while i.has_next():
+                        dic =  i.next()
+                        for key in dic.keys():
+                            print key, ': ', dic[key]
+                        print '\n\n'
 
         else:
             print "Nothing found for your search"
