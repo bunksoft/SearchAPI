@@ -185,8 +185,14 @@ class LogPointSearcher:
         """
             webserver should return UTC or Asia/Kathmandu
         """
-
-        return self._get_allowed_data('user_preference')['timezone']
+        try:
+            time_zone = self._get_allowed_data('user_preference')
+            if time_zone.get("success"):
+                return time_zone.get("timezone")
+            else:
+                return Error(time_zone.get("message"))
+        except Exception, e:
+            return Error(str(e))
 
     def search(self, query, timerange=None, repo=None, timeout=30, limit=100):
         '''
