@@ -46,6 +46,6 @@ class LiveSearch:
         searcher = LogPointSearcher()
          
         self._response_string = searcher.get_response(self.get_id())
-        
+    
         return Response(self._response_string)
         
