@@ -58,11 +58,13 @@ class SearchJob:
         if not self._response:
             response_string = self._searcher.get_response(self.search_id)
         else:
+            print self._response.get_version()
             response_string = self._searcher.get_response(self.search_id, self._response.get_version())
 
         if isinstance(response_string, Error):
             return response_string
 
+        print response_string
         self._response = Response(response_string)
         return self._response
 
