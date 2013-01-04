@@ -10,21 +10,21 @@ get_logpoints.get()
 #print '------------------'
 #print '\n\n'
 #print '------------------'
-get_repos.get()
+#get_repos.get()
 #print '------------------'
 #print '\n\n'
 #print '------------------'
-get_devices.get()
+#get_devices.get()
 #print '------------------'
 #print '\n\n'
 #print '------------------'
-get_timezone.get()
+#get_timezone.get()
 #print '------------------'
 #print '\n\n'
 #print '------------------'
-response = get_search_query.get()
+#response = get_search_query.get()
 
 #print '------------------'
 #print '\n\n'
 #print '------------------'
-#get_livesearch.get()
+get_livesearch.get()
