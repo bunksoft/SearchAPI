@@ -14,7 +14,7 @@ def get():
 ####for timechart query
 #    query = "| timechart count() as C, sum(sig_id) as SSID by device_ip, col_type"
 ####for log search
-    query = '| chart count()'
+    query = 'error'
     searcher = LogPointSearcher()
 
     lp = LogPoint('127.0.0.1', 'LogInspectHariTest')
