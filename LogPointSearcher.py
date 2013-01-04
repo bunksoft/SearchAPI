@@ -280,8 +280,8 @@ class LogPointSearcher:
                 }
 
         try:
-            ack = requests.post(url, data=data, timeout=10.0, verify=False)#verify = True =>SSL certificate will be verified.
-            
+            ack = requests.post(url, data=data, timeout=10.0, verify=False)#verify = True => SSL certificate will be verified.
+            print json.loads(ack.content)
         except Exception, e:
             return Error(str(e))
         
@@ -312,6 +312,8 @@ class LogPointSearcher:
                     res = json.loads(ack.content)
                     if res.get('success'):
                         response = res
+                    else:
+                        return Error(res.get("message"))
                     if res['final'] == True:
                         break
                 except Exception, e:
