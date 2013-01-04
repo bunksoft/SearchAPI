@@ -23,8 +23,8 @@ def get():
                 "\n Livesearch-name => ",livesearch.get_name(),"\n"
     
                 response = livesearch.get_response()
-                if type(response) is dict:
-                    print "\n\n\nError\t\t\t\t\n\n\n",response,"\n\n\n\n"
+                if isinstance(response,Error):
+                    print "\n\n\nError\t\t\t\t\n\n\n",response.get_error_message(),"\n\n\n\n"
                 else:
                     rows = response.get_rows()
                     print '\n\n'

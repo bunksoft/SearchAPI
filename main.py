@@ -4,9 +4,7 @@ import get_devices
 import get_timezone
 import get_livesearch
 import get_search_query
-from LogPointSearcher import LogPointSearcher
-searcher = LogPointSearcher()
-print searcher.get_response()
+
 
 #get_logpoints.get()
 #print '------------------'
@@ -32,7 +30,7 @@ print searcher.get_response()
 
 #print '\n\n'
 #print '------------------'
-#get_livesearch.get()
+get_livesearch.get()
 
 
 

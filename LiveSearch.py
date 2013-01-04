@@ -2,7 +2,7 @@ __author__="bunkdeath"
 __date__ ="$Dec 21, 2012 1:56:50 PM$"
 
 from Response import Response
-
+from Error import Error
 class LiveSearch:
     
     def __init__(self, id, name, query):
@@ -46,6 +46,8 @@ class LiveSearch:
         searcher = LogPointSearcher()
          
         self._response_string = searcher.get_response(self.get_id())
-    
-        return Response(self._response_string)
+        if not isinstance(self._response_string,Error):
+            return Response(self._response_string)
+        else:
+            self._response_string
         

@@ -40,7 +40,6 @@ class Response:
 
         self.response_string = response_string
         self.data = {}
-        print response_string
         type = self.response_string.get('type');
         if (type == "search"):
             self._parse_search_type()

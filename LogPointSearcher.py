@@ -312,6 +312,8 @@ class LogPointSearcher:
                     res = json.loads(ack.content)
                     if res.get('success'):
                         response = res
+                    else:
+                        return Error(res.get("message"))
                     if res['final'] == True:
                         break
                 except Exception, e:
