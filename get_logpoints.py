@@ -4,15 +4,15 @@
 __author__="bunkdeath"
 __date__ ="$Dec 28, 2012 1:40:31 PM$"
 
+from Error import Error
 
 from LogPointSearcher import LogPointSearcher
 def get():
     searcher = LogPointSearcher()
     
     logpoints = searcher.get_log_points()
-    if type(logpoints) is dict:
-        if not logpoints.get('success'):
-            print 'Error : ', logpoints.get('message')
+    if isinstance(logpoints, Error):
+        print 'Error : ', logpoints.get_error_message()
     else:
         print '\n\nGetting all allowed logpoints'
         print '-------------------------------'

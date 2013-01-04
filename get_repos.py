@@ -5,13 +5,14 @@ __author__="bunkdeath"
 __date__ ="$Dec 28, 2012 1:40:50 PM$"
 
 from LogPointSearcher import LogPointSearcher
+from Error import Error
+
 def get():
     searcher = LogPointSearcher()
     
     logpoints = searcher.get_log_points()
-    if type(logpoints) is dict:
-        if not logpoints.get('success'):
-            print 'Error : ', logpoints.get('message')
+    if isinstance(logpoints, Error):
+        print 'Error : ', logpoints.get_error_message()
     else:
 #        for logpoint in logpoints:
 #            print logpoint
@@ -21,10 +22,8 @@ def get():
         print '\n'
         
         repos = searcher.get_repos()
-        if type(repos) is dict:
-            if not repos.get('success'):
-                print 'Something went wrong'
-                print '\t', repos.get('message')
+        if isinstance(repos, Error):
+            print 'Error : ', repos.get_error_message()
         else:
             for repo in repos:
                 print repo
@@ -34,11 +33,9 @@ def get():
         print 'Getting Repos from ', logpoints[1]
         print '\n'
         repos = searcher.get_repos([logpoints[1]])
-    
-        if type(repos) is dict:
-            if not repos.get('success'):
-                print 'Something went wrong'
-                print '\t', repos.get('message')
+
+        if isinstance(repos, Error):
+            print 'Error : ', repos.get_error_message()
         else:
             for repo in repos:
                 print repo
