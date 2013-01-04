@@ -31,4 +31,4 @@ class Repo:
         '''
         get_search_format() => formated repo
         '''
-        return "%s:5504/%s" % (self._logpoint.get_ip(), self._repo_name)
+        return "%s:5504/%s" % (self._logpoint.get_ip(), self.get_name())

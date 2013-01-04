@@ -8,7 +8,6 @@ class LiveSearch:
     def __init__(self, id, name, query):
         """
         """
-    
         if not id.startswith("life_"):
             self._id = "life_%s" % id
         else:
@@ -19,20 +18,21 @@ class LiveSearch:
             
     def get_name(self):
         ''''
-        get_livesearch_name() => livesearch name.
+        get_livesearch_name() => livesearch_name.
         '''
         return self._name
     
     def get_id(self):
         '''
-        get_livesearch_id() => livesearch id.
-        livesearch id is life_id.
+        get_livesearch_id() => livesearch_id.
+        livesearch_id is life_id.
         '''
         return self._id
     
     def get_query(self):
         '''
-        get_livesearch_query() => query of the livesearch.
+        get_livesearch_query() => livesearch_query.
+        livesearch_query is query for the livesearch.
         '''
         return self._query
     
@@ -45,7 +45,7 @@ class LiveSearch:
         from LogPointSearcher import LogPointSearcher
         searcher = LogPointSearcher()
          
-        self._response_string = searcher.get_response(self._id)
+        self._response_string = searcher.get_response(self.get_id())
         
         return Response(self._response_string)
         
