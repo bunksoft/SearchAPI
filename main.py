@@ -1,12 +1,12 @@
-import get_repos
 import get_logpoints
+import get_repos
 import get_devices
 import get_timezone
 import get_livesearch
 import get_search_query
 
 
-get_logpoints.get()
+#get_logpoints.get()
 #print '------------------'
 #print '\n\n'
 #print '------------------'
@@ -22,9 +22,9 @@ get_logpoints.get()
 #print '------------------'
 #print '\n\n'
 #print '------------------'
-#response = get_search_query.get()
+response = get_search_query.get()
 
 #print '------------------'
 #print '\n\n'
 #print '------------------'
-get_livesearch.get()
+#get_livesearch.get()

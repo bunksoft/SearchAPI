@@ -9,7 +9,7 @@ class Error:
         self._has_error = True
         self._error_message = error_message
     
-    def get_has_error(self):
+    def has_error(self):
         '''
         get_has_error() => Boolean
         Returns true if the object has an error otherwise false.

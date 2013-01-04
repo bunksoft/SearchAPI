@@ -6,6 +6,7 @@ __date__ ="$Dec 28, 2012 1:40:01 PM$"
 
 from LogPointSearcher import LogPointSearcher
 from LogPoint import LogPoint
+from Error import Error
 
 def get():
 ####for chart query
@@ -18,6 +19,10 @@ def get():
 
     lp = LogPoint('127.0.0.1', 'LogInspectHariTest')
     repos = lp.get_repos()
+    if isinstance(repos, Error):
+        print 'Error : ', repos.get_error_message()
+        return
+    
     repos_list = []
     for rep in repos:
         repos_list.append(rep.get_search_format())
@@ -27,25 +32,33 @@ def get():
     print 'Getting SearchJob for given search query'
     print '\n'
     search_job = searcher.search(query, 'Last 30 days', repos_list)
-    print '\n\n'
-    if type(search_job) is not dict:
-        if search_job.has_error():
-            print 'Query has error'
-            print 'Error Message : ',  search_job.get_error()
-        else:
-            print '\n\n'
-            print 'Getting response from SearchJob'
-            print '\n'
-            response = search_job.get_response()
-            
-            display(response)
+    
+    if isinstance(search_job, Error):
+        print 'Error : ', search_job.get_error_message()
+        return
 
-            while not response.is_final():
-                response = search_job.get_response()
-                display(response)
 
+    if search_job.has_error():
+        print 'Query has error'
+        print 'Error Message : ',  search_job.get_error()
     else:
-        print search_job.get("message")
+        print '\n\n'
+        print 'Getting response from SearchJob'
+        print '\n'
+        response = search_job.get_response()
+        if isinstance(response, Error):
+            print 'Error : ', response.get_error_message()
+            return
+
+        display(response)
+
+        while not response.is_final():
+            response = search_job.get_response()
+            if isinstance(response, Error):
+                print 'Error : ', response.get_error_message()
+                return
+
+            display(response)
 
 
 def display(response):

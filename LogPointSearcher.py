@@ -38,14 +38,17 @@ class LogPointSearcher:
         logpoints = []
         
         response = self._get_allowed_data('loginspects')
-        if not response.get('success'):
+        if isinstance(response, Error):
             return response
-        
-        allowed_logpoint = response['allowed_loginspects'];
-        for data in allowed_logpoint:
-            logpoints.append(LogPoint(data["ip"], data["name"]))
+        else:
+            if not response.get('success'):
+                return Error(response.get('message'));
+            
+            allowed_logpoint = response['allowed_loginspects'];
+            for data in allowed_logpoint:
+                logpoints.append(LogPoint(data["ip"], data["name"]))
 
-        return logpoints
+            return logpoints
 
 
     def get_repos(self, logpoint_object=None):
@@ -76,8 +79,11 @@ class LogPointSearcher:
 
         response =  self._get_allowed_data("logpoint_repos", logpoint_list)
 
-        if not response.get('success'):
+        if isinstance(response, Error):
             return response
+
+        if not response.get('success'):
+            return Error(response.get('message'))
         
         allowed_repos = response.get('allowed_repos')
         response_logpoint_string = response.get('logpoint')
@@ -136,8 +142,11 @@ class LogPointSearcher:
         logpoint = {}
 
         response = self._get_allowed_data('devices')
+        if isinstance(response, Error):
+            return Response
+        
         if not response.get('success'):
-            return response
+            return Error(response.get('message'))
         
         allowed_devices = response['allowed_devices'];
         logpoints = response['logpoint']
@@ -185,14 +194,15 @@ class LogPointSearcher:
         """
             webserver should return UTC or Asia/Kathmandu
         """
-        try:
-            time_zone = self._get_allowed_data('user_preference')
-            if time_zone.get("success"):
-                return time_zone.get("timezone")
-            else:
+        time_zone = self._get_allowed_data('user_preference')
+        if isinstance(time_zone, Error):
+            return time_zone
+        else:
+            if not time_zone.get("success"):
                 return Error(time_zone.get("message"))
-        except Exception, e:
-            return Error(str(e))
+                
+            else:
+                return time_zone.get("timezone")
 
     def search(self, query, timerange=None, repo=None, timeout=30, limit=100):
         '''
@@ -214,11 +224,11 @@ class LogPointSearcher:
 
         try:
             ack = requests.post(url, data=data, timeout=10.0, verify=False)
+#            print ack.content
         except Exception, e:
-            resp = {}
-            resp["success"] = False
-            resp["message"] = str(e)
-            return resp
+            return Error(str(e))
+#            print resp
+#            return resp
 
         ret = ''
         try:
@@ -273,11 +283,7 @@ class LogPointSearcher:
             ack = requests.post(url, data=data, timeout=10.0, verify=False)#verify = True =>SSL certificate will be verified.
             
         except Exception, e:
-            resp = {}
-            resp["success"] = False
-            resp["message"] = str(e)
-            
-            return resp
+            return Error(str(e))
         
         response = json.loads(ack.content)
         return SearchJob(response)
@@ -309,11 +315,9 @@ class LogPointSearcher:
                     if res['final'] == True:
                         break
                 except Exception, e:
-                    error = {}
-                    error['success'] = False
-                    error['message'] = str(e)
+                    return Error(str(e))
 
             if not response:
-                return {"success":False, "message":"No data from merger"}
+                return Error('No data from merger')
             
             return response

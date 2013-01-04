@@ -5,6 +5,7 @@ __author__="bunkdeath"
 __date__ ="$Dec 24, 2012 11:36:15 AM$"
 
 from Response import Response
+from Error import Error
 
 class SearchJob:
     def __init__(self, response):
@@ -58,8 +59,11 @@ class SearchJob:
             response_string = self._searcher.get_response(self.search_id)
         else:
             response_string = self._searcher.get_response(self.search_id, self._response.get_version())
+
+        if isinstance(response_string, Error):
+            return response_string
+
         self._response = Response(response_string)
-    
         return self._response
 
     def get_type(self):
