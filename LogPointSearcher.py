@@ -222,10 +222,10 @@ class LogPointSearcher:
                 "logpoints": json.dumps(logpoints)
                 }
 
-
+        
         try:
             ack = requests.post(url, data=data, timeout=10.0, verify=False)
-#            print ack.content
+            print ack.content
         except Exception, e:
             return Error(str(e))
 #            print resp
@@ -310,6 +310,8 @@ class LogPointSearcher:
             while time.time() - start_time < 10.0:
                 try:
                     ack = requests.post(url, data=data, timeout=10.0, verify=False)
+                    #TODO 
+#                   check the error if any occoured in ack. 
                     res = json.loads(ack.content)
                     if res.get('success'):
                         response = res
