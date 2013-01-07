@@ -24,17 +24,17 @@ def display_iterative(response):
 
 
 
-#print 'Getting LogPoints'
-#logpoints = searcher.get_log_points()
-#if isinstance(logpoints, Error):
-#    print 'Error : ', logpoints.get_error_message()
-#else:
-#    print '\n\nGetting all allowed logpoints'
-#    print '-------------------------------'
-#    for logpoint in logpoints:
-#        print logpoint
-#print '------------------'
-#print '\n\n'
+print 'Getting LogPoints'
+logpoints = searcher.get_log_points()
+if isinstance(logpoints, Error):
+    print 'Error : ', logpoints.get_error_message()
+else:
+    print '\n\nGetting all allowed logpoints'
+    print '-------------------------------'
+    for logpoint in logpoints:
+        print logpoint
+print '------------------'
+print '\n\n'
 
 
 #print 'Getting All Allowed Repos'
@@ -50,7 +50,7 @@ def display_iterative(response):
 
 
 #print 'Getting Repos From Provided LogPoints'
-## uncomment line 8 to 10 to make this working
+## uncomment line 28 to 30 to make this working
 #print 'Getting Repos from ', logpoints[1]
 #print
 #repos = searcher.get_repos([logpoints[1]])
@@ -78,7 +78,7 @@ def display_iterative(response):
 
 
 #print 'Getting Devices from Particular LogPoint'
-## uncomment line 8 to 10 to make this working
+## uncomment line 28 to 30 to make this working
 #print 'Getting Repos from ', logpoints[0]
 #print
 #devices = searcher.get_devices([logpoints[0]])
@@ -149,7 +149,7 @@ def display_iterative(response):
 
 
 #print 'Query Search from particular LogPoints'
-## uncomment line 8 to 10
+## uncomment line 28 to 30 to make this working
 #print
 ## type = simple
 #query = 'error'
@@ -199,40 +199,40 @@ def display_iterative(response):
 
 
 
-print 'Getting LiveSearch'
-livesearches  = searcher.get_live_searches()
-print "__________Live search Details_________:"
-if isinstance(livesearches,Error):
-    print livesearches.get_error_message()
-else:
-    for livesearch in livesearches:
-        if not isinstance(livesearch,Error):
-            print "\n Livesearch-id[life_id] =>",livesearch.get_id(),"\n" \
-            "\n Livesearch-query => ",livesearch.get_query(),"\n" \
-            "\n Livesearch-name => ",livesearch.get_name(),"\n"
-
-            response = livesearch.get_response()
-            if isinstance(response,Error):
-                print "\n\n\nError\t\t\t\t\n\n\n",response.get_error_message(),"\n\n\n\n"
-            else:
-                rows = response.get_rows()
-                print '\n\n'
-                print 'Displaying data from list returned from get_rows()'
-                print '\n\n'
-
-                for row in rows:
-                    print row
-
-                print '\n\n'
-                print 'Iterative process for search response'
-                print '\n\n'
-
-            i = response.iterate()
-            while i.has_next():
-                dic =  i.next()
-                for key in dic.keys():
-                    print key, ': ', dic[key]
-                print '\n\n'
-        else:
-            print livesearch.get_error_message()
-print '\n\n'
+#print 'Getting LiveSearch'
+#livesearches  = searcher.get_live_searches()
+#print "__________Live search Details_________:"
+#if isinstance(livesearches,Error):
+#    print livesearches.get_error_message()
+#else:
+#    for livesearch in livesearches:
+#        if not isinstance(livesearch,Error):
+#            print "\n Livesearch-id[life_id] =>",livesearch.get_id(),"\n" \
+#            "\n Livesearch-query => ",livesearch.get_query(),"\n" \
+#            "\n Livesearch-name => ",livesearch.get_name(),"\n"
+#
+#            response = livesearch.get_response()
+#            if isinstance(response,Error):
+#                print "\n\n\nError\t\t\t\t\n\n\n",response.get_error_message(),"\n\n\n\n"
+#            else:
+#                rows = response.get_rows()
+#                print '\n\n'
+#                print 'Displaying data from list returned from get_rows()'
+#                print '\n\n'
+#
+#                for row in rows:
+#                    print row
+#
+#                print '\n\n'
+#                print 'Iterative process for search response'
+#                print '\n\n'
+#
+#            i = response.iterate()
+#            while i.has_next():
+#                dic =  i.next()
+#                for key in dic.keys():
+#                    print key, ': ', dic[key]
+#                print '\n\n'
+#        else:
+#            print livesearch.get_error_message()
+#print '\n\n'
