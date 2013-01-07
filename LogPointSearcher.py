@@ -314,13 +314,16 @@ class LogPointSearcher:
                     if res.get('success'):
                         response = res
                     else:
+                        print res
                         return Error(res.get("message"))
                     if res['final'] == True:
                         break
                 except Exception, e:
+                    print 'LPS line 321', str(e)
                     return Error(str(e))
 
             if not response:
                 return Error('No data from merger')
             
+            print response
             return response
