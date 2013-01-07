@@ -1,10 +1,11 @@
-import Config
+
 __author__="bunkdeath"
 __date__ ="$Dec 21, 2012 2:43:56 PM$"
 
 
 import json
 import time
+import Config
 import requests
 from Config import Config
 from LogPoint import LogPoint
