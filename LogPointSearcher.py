@@ -178,6 +178,7 @@ class LogPointSearcher:
         live_searches_lists = []
         try:
             live_searches =  self._get_allowed_data('livesearches')
+            print "LiveSearches => ",live_searches
             if live_searches.get("success"):
                 for live_search in live_searches["livesearches"]:
                     live_searches_lists.append(LiveSearch(live_search["life_id"],live_search["searchname"],live_search["query"]))#,"livesearch"))
@@ -224,6 +225,7 @@ class LogPointSearcher:
 
         
         try:
+	    print 'url=%s' % url
             ack = requests.post(url, data=data, timeout=10.0, verify=False)
             print ack.content
         except Exception, e:
@@ -265,7 +267,6 @@ class LogPointSearcher:
             RESULT_LIMIT = limit
 
         url = "%s://%s/%s" % (self.request_type, self.ip, "getsearchlogs")
-
         data = {
                 "username":self.username,
                 "secret_key": self.secert_key,
@@ -282,7 +283,6 @@ class LogPointSearcher:
 
         try:
             ack = requests.post(url, data=data, timeout=10.0, verify=False)#verify = True => SSL certificate will be verified.
-            print json.loads(ack.content)
         except Exception, e:
             return Error(str(e))
         
@@ -304,7 +304,6 @@ class LogPointSearcher:
                            "seen_version": version
                            })
                 }
-
             start_time = time.time()
             response = {}
             while time.time() - start_time < 10.0:
@@ -313,19 +312,20 @@ class LogPointSearcher:
                     #TODO 
 #                   check the error if any occoured in ack. 
                     res = json.loads(ack.content)
+#                    print ack.content
                     if res.get('success'):
                         response = res
                     else:
-                        print res
+#                        print res
                         return Error(res.get("message"))
                     if res['final'] == True:
                         break
                 except Exception, e:
-                    print 'LPS line 321', str(e)
+#                    print 'LPS line 321', str(e)
                     return Error(str(e))
 
             if not response:
                 return Error('No data from merger')
             
-            print response
+#            print response
             return response

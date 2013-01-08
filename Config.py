@@ -8,6 +8,7 @@ class Config:
     def __init__(self):
         self.request_type = 'https'
         self.ip = '192.168.2.205'
+#        self.port = 5000
 #        self.username = 'mytest'
 #        self.secret_key = 'a2b29749ff3fcff8c3cb46315627f8b0'
 #        
