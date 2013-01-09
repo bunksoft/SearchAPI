@@ -69,7 +69,7 @@ class LogPointSearcher:
 
         if not logpoint_object:
             logpoint_object = []
-            
+                
         repos = []
         logpoint = {}
         logpoint_list = []
@@ -178,7 +178,6 @@ class LogPointSearcher:
         live_searches_lists = []
         try:
             live_searches =  self._get_allowed_data('livesearches')
-            print "LiveSearches => ",live_searches
             if live_searches.get("success"):
                 for live_search in live_searches["livesearches"]:
                     live_searches_lists.append(LiveSearch(live_search["life_id"],live_search["searchname"],live_search["query"]))#,"livesearch"))

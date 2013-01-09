@@ -13,8 +13,8 @@ class Config:
 #        self.secret_key = 'a2b29749ff3fcff8c3cb46315627f8b0'
 #        
 #        LI user for 205
-#        self.username = 'ln2khanal'
-#        self.secret_key = '36ad226f539a446f2ce8a98c883d34c5'
+        self.username = 'ln2khanal'
+        self.secret_key = '36ad226f539a446f2ce8a98c883d34c5'
 #        
 #        self.username = 'bunkdeath'
 #        self.secret_key = 'bcb070c22969225e0f517b403391bcde'
@@ -22,5 +22,7 @@ class Config:
 #        User for my local LI-Lekhnath Khanal
 #        self.username = 'ln2khanal'
 #        self.secret_key = '3b4d01f95fa14fb55cd15a26b87c7c1c'
-        self.username = 'admin'
-        self.secret_key = '29cc708f5cee084bb9d7b8c704d6f8e3'
+#        self.username = 'admin'
+#        self.secret_key = '29cc708f5cee084bb9d7b8c704d6f8e3'
+#210
+#        self.secret_key = '1b1bd10635a58b889a5e721c59d238e5'
