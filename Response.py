@@ -175,7 +175,6 @@ class Response:
 
 
     def _parse_timechart_rows_data(self):
-        print 'here'
         '''
         parse rows data of timechart type and put it in list
 
