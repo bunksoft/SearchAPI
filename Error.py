@@ -1,8 +1,3 @@
-'''
-Created on Jan 3, 2013
-
-@author: mama
-'''
 class Error:
     def __init__(self,error_message):
         

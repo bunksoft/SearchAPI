@@ -1,8 +1,3 @@
-
-__author__="bunkdeath"
-__date__ ="$Dec 21, 2012 2:43:56 PM$"
-
-
 import json
 import time
 import Config
@@ -25,7 +20,6 @@ class LogPointSearcher:
         self.username = config.username
         self.secert_key = config.secret_key
         self.request_type = config.request_type
-
 
     def get_log_points(self):
         '''
@@ -50,7 +44,6 @@ class LogPointSearcher:
                 logpoints.append(LogPoint(data["ip"], data["name"]))
 
             return logpoints
-
 
     def get_repos(self, logpoint_object=None):
         ''' 
@@ -78,7 +71,7 @@ class LogPointSearcher:
             lp = logpoint_row.get_ip()
             logpoint_list.append(lp)
 
-        response =  self._get_allowed_data("logpoint_repos", logpoint_list)
+        response =  self._get_allowed_data("repos", logpoint_list)
 
         if isinstance(response, Error):
             return response
@@ -101,9 +94,6 @@ class LogPointSearcher:
             for logpt in response_logpoint_string:
                 logpoint_ip = logpt.get('ip')
                 logpoint_name = logpt.get('name')
-                #TODO
-                # what if, instead of logpoint object,
-                # logpoint name is provided?
                 logpoint[logpoint_ip] = LogPoint(logpoint_ip, logpoint_name)
         else:
             '''
@@ -144,7 +134,7 @@ class LogPointSearcher:
 
         response = self._get_allowed_data('devices')
         if isinstance(response, Error):
-            return Response
+            return response
         
         if not response.get('success'):
             return Error(response.get('message'))
@@ -178,15 +168,17 @@ class LogPointSearcher:
         live_searches_lists = []
         try:
             live_searches =  self._get_allowed_data('livesearches')
-            if live_searches.get("success"):
-                for live_search in live_searches["livesearches"]:
-                    live_searches_lists.append(LiveSearch(live_search["life_id"],live_search["searchname"],live_search["query"]))#,"livesearch"))
-                return live_searches_lists
-            else:
-                return Error(live_searches["message"])
-        except Exception, e:
-            
-            return Error(str(e))
+	    if not isinstance(live_searches,Error):
+		if live_searches.get("success"):
+		    for live_search in live_searches["livesearches"]:
+			live_searches_lists.append(LiveSearch(live_search["life_id"],live_search["searchname"],live_search["query"]))
+		    return live_searches_lists
+		else:
+		    return Error(live_searches["message"])
+	    else:
+		return Error('No data received')
+	except Exception, e:
+	    return Error(str(e))
 
     def get_timezone(self):
         '''
@@ -221,27 +213,19 @@ class LogPointSearcher:
                 "type": data_type,
                 "logpoints": json.dumps(logpoints)
                 }
-
-        
         try:
-	    print 'url=%s' % url
             ack = requests.post(url, data=data, timeout=10.0, verify=False)
-            print ack.content
         except Exception, e:
             return Error(str(e))
-#            print resp
-#            return resp
 
         ret = ''
         try:
             ret = json.loads(ack.content)
-        except:
-            pass
-#            print ack.content
+        except Exception, e:
+            return Error(str(e))
 
         return ret
-
-
+    
     def _get_search_job(self, query, timerange=None, repo=None, timeout=None, limit=None):
         SEARCH_QUERY = query
         
@@ -249,10 +233,7 @@ class LogPointSearcher:
             SEARCH_TIME_RANGE = 'Last 10 minutes'
         else:
             SEARCH_TIME_RANGE = timerange
-
         if not repo:
-            # TODO
-            # check if repo is list of string or repo object
             SEARCH_REPOS = []
         else:
             SEARCH_REPOS = repo
@@ -288,12 +269,11 @@ class LogPointSearcher:
         response = json.loads(ack.content)
         return SearchJob(response)
         
-
     def get_response(self, search_id, version=None):
         if not version:
             version = 0
         url = "%s://%s/%s" % (self.request_type, self.ip, "getsearchlogs")
-        if search_id:
+	if search_id:
             data = {
                 "username":self.username,
                 "secret_key": self.secert_key,
@@ -304,27 +284,16 @@ class LogPointSearcher:
                            })
                 }
             start_time = time.time()
-            response = {}
             while time.time() - start_time < 10.0:
                 try:
                     ack = requests.post(url, data=data, timeout=10.0, verify=False)
-                    #TODO 
-#                   check the error if any occoured in ack. 
-                    res = json.loads(ack.content)
-                    print 'Response content =', ack.content
+		    res = json.loads(ack.content)
                     if res.get('success'):
-                        response = res
+			response = res
                     else:
-#                        print res
-                        return Error(res.get("message"))
+                        response = Error(res.get("message"))
                     if res['final'] == True:
                         break
                 except Exception, e:
-#                    print 'LPS line 321', str(e)
-                    return Error(str(e))
-
-            if not response:
-                return Error('No data from merger')
-            
-            print 'Response = ',response
-            #return response
+                    response = Error('Error on query process. %s' % str(e))
+	    return response

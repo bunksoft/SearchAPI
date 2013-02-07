@@ -1,6 +1,6 @@
 class Config:
     def __init__(self):
         self.request_type = 'https'
-        self.ip = 'localhost'
+        self.ip = '192.168.2.207'
         self.username = 'admin'
-        self.secret_key = '60af8fc63fd51d126b920bdc3180dddf'
+        self.secret_key = 'c1ee2355acd3cd3e4225d9f640be9b81'

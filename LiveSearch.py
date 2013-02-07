@@ -50,4 +50,3 @@ class LiveSearch:
             return Response(self._response_string)
         else:
             self._response_string
-        
