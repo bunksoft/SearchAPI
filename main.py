@@ -38,7 +38,7 @@ def display_iterative(response):
 
 
 
-
+#
 #print 'Getting All Allowed Repos'
 #print
 #repos = searcher.get_repos()
@@ -109,16 +109,18 @@ def display_iterative(response):
 
 
 
-
-
+#searcher.get_response('7bf407ec000e42a7a78f961ee03f4b1f')
+#print 'Ok, exiting..'
+#exit()
+#
 #print 'Query Search from all available LogPoints'
-# type = simple
+#type = 'simple'
 #query = 'error'
-# type = chart
-#query = "| chart count() as Count, sum(sig_id) as SID by device_ip, source_name"
-# type = timechart
-#query = "| timechart count() as C, sum(sig_id) as SSID by device_ip, col_type"
-
+##type = 'chart'
+##query = "| chart count() as Count, sum(sig_id) as SID by device_ip, source_name"
+##type = timechart
+##query = "| timechart count() as C, sum(sig_id) as SSID by device_ip, col_type"
+#
 #search_job = searcher.search(query)
 #
 #if isinstance(search_job, Error):
@@ -149,7 +151,7 @@ def display_iterative(response):
 #        display_rows(response)
 ##        display_iterative(response)
 #print '\n\n'
-
+#
 
 
 
@@ -233,7 +235,6 @@ else:
 
                 for row in rows:
                     print row
-
                 print '\n\n'
                 print 'Iterative process for search response'
                 print '\n\n'

@@ -311,7 +311,7 @@ class LogPointSearcher:
                     #TODO 
 #                   check the error if any occoured in ack. 
                     res = json.loads(ack.content)
-#                    print ack.content
+                    print 'Response content =', ack.content
                     if res.get('success'):
                         response = res
                     else:
@@ -326,5 +326,5 @@ class LogPointSearcher:
             if not response:
                 return Error('No data from merger')
             
-#            print response
-            return response
+            print 'Response = ',response
+            #return response
