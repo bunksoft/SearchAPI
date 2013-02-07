@@ -174,7 +174,7 @@ class LogPointSearcher:
 			live_searches_lists.append(LiveSearch(live_search["life_id"],live_search["searchname"],live_search["query"]))
 		    return live_searches_lists
 		else:
-		    return Error(live_searches["message"])
+		    return live_searches
 	    else:
 		return Error('No data received')
 	except Exception, e:
