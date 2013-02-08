@@ -1,8 +1,3 @@
-'''
-Created on Dec 21, 2012
-
-@author: mama
-'''
 class LogPoint:
     
     def __init__(self, ip, name=None):

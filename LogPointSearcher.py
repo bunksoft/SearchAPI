@@ -47,19 +47,11 @@ class LogPointSearcher:
 
     def get_repos(self, logpoint_object=None):
         ''' 
-        Search for repos for which the user have permission to access
-        according to credential provided
+        Search for repos for which the user have permission.
 
-        If no parameter passed, it searches for the repos within
-        all logpoints
+        If no parameter passed, it searches for the allowed repos in all logpoints
 
-        If logpoint object is passed as a parameter,
-        it searches for the repos within the logpoint referenced
-        by the logpoint object
-
-        Returns list of Repo object
-        '''
-
+	'''
         if not logpoint_object:
             logpoint_object = []
                 
@@ -70,9 +62,8 @@ class LogPointSearcher:
         for logpoint_row in logpoint_object:
             lp = logpoint_row.get_ip()
             logpoint_list.append(lp)
-
+	    
         response =  self._get_allowed_data("repos", logpoint_list)
-
         if isinstance(response, Error):
             return response
 
@@ -80,34 +71,17 @@ class LogPointSearcher:
             return Error(response.get('message'))
         
         allowed_repos = response.get('allowed_repos')
-        response_logpoint_string = response.get('logpoint')
+        response_logpoints = response.get('logpoint')
 
-        if response_logpoint_string:
-            '''
-            get all the logpoints
-
-            if only results have logpoint key and its value
-
-            if it is not contained, most probable the logpoint
-            object list is passed in the method
-            '''
-            for logpt in response_logpoint_string:
+        if response_logpoints:
+            for logpt in response_logpoints:
                 logpoint_ip = logpt.get('ip')
                 logpoint_name = logpt.get('name')
                 logpoint[logpoint_ip] = LogPoint(logpoint_ip, logpoint_name)
         else:
-            '''
-            if logpoint objects were passed in method parameter
-
-            generate logpoint list
-            '''
             for logpt in logpoint_object:
                 logpoint[logpt.get_ip()] = logpt
 
-
-        '''
-        get repo_name and its ip, and reference back to logpoint
-        '''
         for repo in allowed_repos:
             address, repo_name = repo.get('address').split('/')
             logpoint_ip, port = address.split(':')
@@ -215,16 +189,15 @@ class LogPointSearcher:
                 }
         try:
             ack = requests.post(url, data=data, timeout=10.0, verify=False)
+	    print ack.content
         except Exception, e:
             return Error(str(e))
-
-        ret = ''
         try:
             ret = json.loads(ack.content)
         except Exception, e:
-            return Error(str(e))
-
-        return ret
+            ret = Error(str(e))
+        finally:
+	    return ret
     
     def _get_search_job(self, query, timerange=None, repo=None, timeout=None, limit=None):
         SEARCH_QUERY = query
