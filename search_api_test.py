@@ -38,30 +38,30 @@ searcher = LogPointSearcher()
 #                print repo
 #print "################################"
 
-
-print "###### GETING DEVICES INFORMATION ##############"
-print "---- GETTING DEVICES FROM ALL LOGPOINTS ---------"
-devices = searcher.get_devices()
-if isinstance(devices, Error):
-    print 'Error : ', devices.get_error_message()
-else:
-    for device in devices:
-        print device
-print "-----------------------"
-print "----- GETTING DEVICES FROM LOGPOINTS -------"
-logpoints = searcher.get_log_points()
-if not isinstance(logpoints,Error):
-    for logpoint in logpoints:
-        print "Devices for logpoint = ", logpoint.ip
-        devices = searcher.get_devices([logpoint])
-        if isinstance(devices, Error):
-            print 'Error : ', devices.get_error_message()
-        else:
-            print "-------- Devices for this LogPoint -----------"
-            for dev in devices:
-                print dev
-print "################################"
-
+#
+#print "###### GETING DEVICES INFORMATION ##############"
+#print "---- GETTING DEVICES FROM ALL LOGPOINTS ---------"
+#devices = searcher.get_devices()
+#if isinstance(devices, Error):
+#    print 'Error : ', devices.get_error_message()
+#else:
+#    for device in devices:
+#        print device
+#print "-----------------------"
+#print "----- GETTING DEVICES FROM LOGPOINTS -------"
+#logpoints = searcher.get_log_points()
+#if not isinstance(logpoints,Error):
+#    for logpoint in logpoints:
+#        print "Devices for logpoint = ", logpoint.ip
+#        devices = searcher.get_devices([logpoint])
+#        if isinstance(devices, Error):
+#            print 'Error : ', devices.get_error_message()
+#        else:
+#            print "-------- Devices for this LogPoint -----------"
+#            for dev in devices:
+#                print dev
+#print "################################"
+#
 
 
 #print "#####    GETTING USER TIMEZONE   ####"
