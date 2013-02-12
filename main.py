@@ -109,49 +109,46 @@ def display_iterative(response):
 
 
 
-#searcher.get_response('7bf407ec000e42a7a78f961ee03f4b1f')
-#print 'Ok, exiting..'
-#exit()
-#
-#print 'Query Search from all available LogPoints'
-#type = 'simple'
-#query = 'error'
-##type = 'chart'
-##query = "| chart count() as Count, sum(sig_id) as SID by device_ip, source_name"
-##type = timechart
-##query = "| timechart count() as C, sum(sig_id) as SSID by device_ip, col_type"
-#
-#search_job = searcher.search(query)
-#
-#if isinstance(search_job, Error):
-#    print 'Error : ', search_job.get_error_message()
-#    exit()
-#
-#if search_job.has_error():
-#    print 'Query has error'
-#    print 'Error Message : ',  search_job.get_error()
-#else:
-#    print
-#    print 'Getting response from SearchJob'
-#    print
-#    response = search_job.get_response()
-#    if isinstance(response, Error):
-#        print 'Error : ', response.get_error_message()
-#        exit()
-#
-#    display_rows(response)
-##    display_iterative(response)
-#
-#    while not response.is_final():
-#        response = search_job.get_response()
-#        if isinstance(response, Error):
-#            print 'Error : ', response.get_error_message()
-#            exit()
-#
-#        display_rows(response)
-##        display_iterative(response)
-#print '\n\n'
-#
+
+print 'Query Search from all available LogPoints'
+type = 'simple'
+query = 'error'
+#type = 'chart'
+#query = "| chart count() as Count, sum(sig_id) as SID by device_ip, source_name"
+#type = timechart
+#query = "| timechart count() as C, sum(sig_id) as SSID by device_ip, col_type"
+
+search_job = searcher.search(query)
+
+if isinstance(search_job, Error):
+    print 'Error : ', search_job.get_error_message()
+    exit()
+
+if search_job.has_error():
+    print 'Query has error'
+    print 'Error Message : ',  search_job.get_error()
+else:
+    print
+    print 'Getting response from SearchJob'
+    print
+    response = search_job.get_response()
+    if isinstance(response, Error):
+        print 'Error : ', response.get_error_message()
+        exit()
+
+    display_rows(response)
+#    display_iterative(response)
+
+    while not response.is_final():
+        response = search_job.get_response()
+        if isinstance(response, Error):
+            print 'Error : ', response.get_error_message()
+            exit()
+
+        display_rows(response)
+#        display_iterative(response)
+print '\n\n'
+
 
 
 
@@ -210,9 +207,6 @@ def display_iterative(response):
 
 
 
-
-
-
 print 'Getting LiveSearch'
 livesearches  = searcher.get_live_searches()
 if isinstance(livesearches,Error):
@@ -228,6 +222,7 @@ else:
             if isinstance(response,Error):
                 print "\n\n\nError\t\t\t\t\n\n\n",response.get_error_message(),"\n\n\n\n"
             else:
+                print 'Response => ',response
                 rows = response.get_rows()
                 print '\n\n'
                 print 'Displaying data from list returned from get_rows()'
