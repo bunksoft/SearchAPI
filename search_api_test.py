@@ -3,6 +3,55 @@ from LogPointSearcher import LogPointSearcher
 
 searcher = LogPointSearcher()
 
+def display_rows(response):
+    rows = response.get_rows()
+    print
+
+    for row in rows:
+        print row
+
+def display_iterative(response):
+    print
+    i = response.iterate()
+    while i.has_next():
+        dic =  i.next()
+        for key in dic.keys():
+            print key, ': ', dic[key]
+        print '\n\n'
+
+#print "############ GETTING QUERY RESULT ##############"    
+##type = 'simple'
+#query = ''
+#
+#search_job = searcher.search(query)
+#
+#if isinstance(search_job, Error):
+#    print 'Error : ', search_job.get_error_message()
+#    exit()
+#
+#if search_job.has_error():
+#    print 'Error Message : ',  search_job.get_error()
+#else:
+#    response = search_job.get_response()
+#    if isinstance(response, Error):
+#        print 'Error : ', response.get_error_message()
+#        exit()
+#
+#    display_rows(response)
+#    display_iterative(response)
+#
+#    while not response.is_final():
+#        response = search_job.get_response()
+#        if isinstance(response, Error):
+#            print 'Error : ', response.get_error_message()
+#            exit()
+#
+#        display_rows(response)
+#        display_iterative(response)
+#
+#print '#############################################'
+#
+
 
 #print "### GETTING LOGPOINTS INFORMATION #####"
 #logpoints = searcher.get_log_points()
@@ -15,30 +64,30 @@ searcher = LogPointSearcher()
 #print "#####################################"
 
 
-#print "###### GETING REPOS INFORMATION ##############"
-#print "---- GETTING REPOS FROM ALL LOGPOINTS ---------"
-#repos = searcher.get_repos()
-#if isinstance(repos, Error):
-#    print 'Error : ', repos.get_error_message()
-#else:
-#    for repo in repos:
-#        print repo
-#print "-----------------------"
-#print "----- GETTING REPOS FROM LOGPOINTS -------"
-#logpoints = searcher.get_log_points()
-#if logpoints:
-#    for logpoint in logpoints:
-#        print "Repos for logpoint = ", logpoint.ip
-#        repos = logpoint.get_repos()
-#        if isinstance(repos, Error):
-#            print 'Error : ', repos.get_error_message()
-#        else:
-#            print "-------- Repos for this LogPoint -----------"
-#            for repo in repos:
-#                print repo
-#print "################################"
+print "###### GETING REPOS INFORMATION ##############"
+print "---- GETTING REPOS FROM ALL LOGPOINTS ---------"
+repos = searcher.get_repos()
+if isinstance(repos, Error):
+    print 'Error : ', repos.get_error_message()
+else:
+    for repo in repos:
+        print repo
+print "-----------------------"
+print "----- GETTING REPOS FROM LOGPOINTS -------"
+logpoints = searcher.get_log_points()
+if logpoints:
+    for logpoint in logpoints:
+        print "Repos for logpoint = ", logpoint.ip
+        repos = logpoint.get_repos()
+        if isinstance(repos, Error):
+            print 'Error : ', repos.get_error_message()
+        else:
+            print "-------- Repos for this LogPoint -----------"
+            for repo in repos:
+                print repo
+print "################################"
 
-#
+
 #print "###### GETING DEVICES INFORMATION ##############"
 #print "---- GETTING DEVICES FROM ALL LOGPOINTS ---------"
 #devices = searcher.get_devices()
@@ -61,7 +110,7 @@ searcher = LogPointSearcher()
 #            for dev in devices:
 #                print dev
 #print "################################"
-#
+
 
 
 #print "#####    GETTING USER TIMEZONE   ####"
@@ -82,8 +131,10 @@ searcher = LogPointSearcher()
 #        print livesearch.get_id()
 #        print livesearch.get_name()
 #        print livesearch.get_query()
-#        if not isinstance(livesearch,Error):
-#            print livesearch.get_response()
+#        if isinstance(livesearch,Error):
+#            print 'Error message: ',livesearch.get_error_message()    
 #        else:
-#            print 'Error message: ',livesearch.get_error_message()
+#            response = livesearch.get_response()
+#            display_rows(response)
+#            display_iterative(response)
 #print "#####################"
