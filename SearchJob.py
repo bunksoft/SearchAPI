@@ -95,7 +95,6 @@ class SearchJob:
         self._success = response.get('success')
         
         self._search_id = response.get('search_id')
-        print 'Search Id = ',self._search_id
         self._set_error_message(response.get('message'))
         
         if self._success:
