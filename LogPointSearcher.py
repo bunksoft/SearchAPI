@@ -189,7 +189,6 @@ class LogPointSearcher:
                 }
         try:
             ack = requests.post(url, data=data, timeout=10.0, verify=False)
-	    print ack.content
         except Exception, e:
             return Error(str(e))
         try:
@@ -235,7 +234,7 @@ class LogPointSearcher:
                 }
 
         try:
-            ack = requests.post(url, data=data, timeout=10.0, verify=False)#verify = True => SSL certificate will be verified.
+            ack = requests.post(url, data=data, timeout=20.0, verify=False)#verify = True => SSL certificate will be verified.
         except Exception, e:
             return Error(str(e))
         
