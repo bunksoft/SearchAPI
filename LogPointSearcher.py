@@ -85,20 +85,16 @@ class LogPointSearcher:
         for repo in allowed_repos:
             address, repo_name = repo.get('address').split('/')
             logpoint_ip, port = address.split(':')
-            repos.append(Repo(logpoint[logpoint_ip], repo_name))
+	    if not logpoint_list:
+		repos.append(Repo(logpoint[logpoint_ip], repo_name))
+	    elif logpoint_ip in logpoint_list:
+		repos.append(Repo(logpoint[logpoint_ip], repo_name))
         return repos
 
-    def get_devices(self, logpoint=None):
+    def get_devices(self, logpoint_list=None):
         '''
-        Search for devices for which the user have permission to access
-        according to credential provided
-
-        If no parameter passed, it searches for the devices within
-        all logpoints
-
-        If logpoint object is passed as a parameter,
-        it searches for the devices within the logpoint referenced
-        by the logpoint object
+        If no parameter passed, it searches for the allowed devices within
+        all logpoints otherwise allowed devices are searched in the logpoint
 
         Returns list of Device object
         '''
@@ -115,23 +111,22 @@ class LogPointSearcher:
         
         allowed_devices = response['allowed_devices'];
         logpoints = response['logpoint']
-
-        '''
-        get all the logpoints
-        '''
         for logpt in logpoints:
             logpoint_ip = logpt.get('ip')
             logpoint_name = logpt.get('name')
             logpoint[logpoint_ip] = LogPoint(logpoint_ip, logpoint_name)
-        
 
-        for i in range(len(allowed_devices)):
-            data = allowed_devices[i]
-            if type(data) is dict:
-                for row in data:
-                    lp, ip = row.split('/')
-                    devices.append(Device(ip, data[row], logpoint[lp]))
-        
+        for device_info in allowed_devices:
+	    if type(device_info) is dict:
+		for li_dev_ip, dev_name in device_info.iteritems():
+		    lp, ip = li_dev_ip.split('/', 1)
+		    if not logpoint_list:
+			devices.append(Device(ip, device_info[li_dev_ip], logpoint[lp]))
+		    else:
+			for requested_logpoint in logpoint_list:
+			    if lp == requested_logpoint.get_ip():
+				devices.append(Device(ip, device_info[li_dev_ip], logpoint[lp]))
+			
         return devices
 
     def get_live_searches(self):
