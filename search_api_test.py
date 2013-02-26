@@ -64,52 +64,52 @@ def display_iterative(response):
 #print "#####################################"
 
 
-print "###### GETING REPOS INFORMATION ##############"
-print "---- GETTING REPOS FROM ALL LOGPOINTS ---------"
-repos = searcher.get_repos()
-if isinstance(repos, Error):
-    print 'Error : ', repos.get_error_message()
-else:
-    for repo in repos:
-        print repo
-print "-----------------------"
-print "----- GETTING REPOS FROM LOGPOINTS -------"
-logpoints = searcher.get_log_points()
-if logpoints:
-    for logpoint in logpoints:
-        print "Repos for logpoint = ", logpoint.ip
-        repos = logpoint.get_repos()
-        if isinstance(repos, Error):
-            print 'Error : ', repos.get_error_message()
-        else:
-            print "-------- Repos for this LogPoint -----------"
-            for repo in repos:
-                print repo
-print "################################"
-
-
-#print "###### GETING DEVICES INFORMATION ##############"
-#print "---- GETTING DEVICES FROM ALL LOGPOINTS ---------"
-#devices = searcher.get_devices()
-#if isinstance(devices, Error):
-#    print 'Error : ', devices.get_error_message()
+#print "###### GETING REPOS INFORMATION ##############"
+#print "---- GETTING REPOS FROM ALL LOGPOINTS ---------"
+#repos = searcher.get_repos()
+#if isinstance(repos, Error):
+#    print 'Error : ', repos.get_error_message()
 #else:
-#    for device in devices:
-#        print device
+#    for repo in repos:
+#        print repo
 #print "-----------------------"
-#print "----- GETTING DEVICES FROM LOGPOINTS -------"
+#print "----- GETTING REPOS FROM LOGPOINTS -------"
 #logpoints = searcher.get_log_points()
-#if not isinstance(logpoints,Error):
+#if logpoints:
 #    for logpoint in logpoints:
-#        print "Devices for logpoint = ", logpoint.ip
-#        devices = searcher.get_devices([logpoint])
-#        if isinstance(devices, Error):
-#            print 'Error : ', devices.get_error_message()
+#        print "Repos for logpoint = ", logpoint.ip
+#        repos = logpoint.get_repos()
+#        if isinstance(repos, Error):
+#            print 'Error : ', repos.get_error_message()
 #        else:
-#            print "-------- Devices for this LogPoint -----------"
-#            for dev in devices:
-#                print dev
+#            print "-------- Repos for this LogPoint -----------"
+#            for repo in repos:
+#                print repo
 #print "################################"
+
+
+print "###### GETING DEVICES INFORMATION ##############"
+print "---- GETTING DEVICES FROM ALL LOGPOINTS ---------"
+devices = searcher.get_devices()
+if isinstance(devices, Error):
+    print 'Error : ', devices.get_error_message()
+else:
+    for device in devices:
+        print device
+print "-----------------------"
+print "----- GETTING DEVICES FROM LOGPOINTS -------"
+logpoints = searcher.get_log_points()
+if not isinstance(logpoints,Error):
+    for logpoint in logpoints:
+        print "Devices for logpoint = ", logpoint.ip
+        devices = searcher.get_devices([logpoint])
+        if isinstance(devices, Error):
+            print 'Error : ', devices.get_error_message()
+        else:
+            print "-------- Devices for this LogPoint -----------"
+            for dev in devices:
+                print dev
+print "################################"
 
 
 
