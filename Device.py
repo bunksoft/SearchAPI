@@ -1,9 +1,5 @@
-__author__="bunkdeath"
-__date__ ="$Dec 21, 2012 1:56:59 PM$"
 
 class Device:
-#TODO
-#what to print for device. device name format
     def __init__(self, ip, name, logpoint):
         """
         device ip address

@@ -15,8 +15,7 @@ class SearchJob:
         self._response = None
 
         self._is_first_call = True
-
-        #extra added items
+        
         from LogPointSearcher import LogPointSearcher
         self._searcher = LogPointSearcher()
         self.search_id = ''
