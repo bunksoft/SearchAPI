@@ -1,6 +1,3 @@
-__author__="bunkdeath"
-__date__ ="$Jan 2, 2013 3:17:18 PM$"
-
 from Rows import Rows
 
 class Response:

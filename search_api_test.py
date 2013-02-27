@@ -88,28 +88,28 @@ def display_iterative(response):
 #print "################################"
 
 
-print "###### GETING DEVICES INFORMATION ##############"
-print "---- GETTING DEVICES FROM ALL LOGPOINTS ---------"
-devices = searcher.get_devices()
-if isinstance(devices, Error):
-    print 'Error : ', devices.get_error_message()
-else:
-    for device in devices:
-        print device
-print "-----------------------"
-print "----- GETTING DEVICES FROM LOGPOINTS -------"
-logpoints = searcher.get_log_points()
-if not isinstance(logpoints,Error):
-    for logpoint in logpoints:
-        print "Devices for logpoint = ", logpoint.ip
-        devices = searcher.get_devices([logpoint])
-        if isinstance(devices, Error):
-            print 'Error : ', devices.get_error_message()
-        else:
-            print "-------- Devices for this LogPoint -----------"
-            for dev in devices:
-                print dev
-print "################################"
+#print "###### GETING DEVICES INFORMATION ##############"
+#print "---- GETTING DEVICES FROM ALL LOGPOINTS ---------"
+#devices = searcher.get_devices()
+#if isinstance(devices, Error):
+#    print 'Error : ', devices.get_error_message()
+#else:
+#    for device in devices:
+#        print device
+#print "-----------------------"
+#print "----- GETTING DEVICES FROM LOGPOINTS -------"
+#logpoints = searcher.get_log_points()
+#if not isinstance(logpoints,Error):
+#    for logpoint in logpoints:
+#        print "Devices for logpoint = ", logpoint.ip
+#        devices = searcher.get_devices([logpoint])
+#        if isinstance(devices, Error):
+#            print 'Error : ', devices.get_error_message()
+#        else:
+#            print "-------- Devices for this LogPoint -----------"
+#            for dev in devices:
+#                print dev
+#print "################################"
 
 
 
@@ -122,19 +122,19 @@ print "################################"
 #print "#################################"
 
 
-#print "######### Getting LiveSearch  #########"
-#livesearches  = searcher.get_live_searches()
-#if isinstance(livesearches,Error):
-#    print livesearches.get_error_message()
-#else:
-#    for livesearch in livesearches:
-#        print livesearch.get_id()
-#        print livesearch.get_name()
-#        print livesearch.get_query()
-#        if isinstance(livesearch,Error):
-#            print 'Error message: ',livesearch.get_error_message()    
-#        else:
-#            response = livesearch.get_response()
-#            display_rows(response)
-#            display_iterative(response)
-#print "#####################"
+print "######### Getting LiveSearch  #########"
+livesearches  = searcher.get_live_searches()
+if isinstance(livesearches,Error):
+    print livesearches.get_error_message()
+else:
+    for livesearch in livesearches:
+        print livesearch.get_id()
+        print livesearch.get_name()
+        print livesearch.get_query()
+        if isinstance(livesearch,Error):
+            print 'Error message: ',livesearch.get_error_message()    
+        else:
+            response = livesearch.get_response()
+            display_rows(response)
+            display_iterative(response)
+print "#####################"

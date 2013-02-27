@@ -1,9 +1,3 @@
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
-
-__author__="bunkdeath"
-__date__ ="$Dec 24, 2012 11:36:15 AM$"
-
 from Response import Response
 from Error import Error
 

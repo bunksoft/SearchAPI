@@ -1,6 +1,3 @@
-__author__="bunkdeath"
-__date__ ="$Dec 21, 2012 1:56:50 PM$"
-
 from Response import Response
 from Error import Error
 class LiveSearch:
