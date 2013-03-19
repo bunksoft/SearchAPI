@@ -27,7 +27,7 @@ class LogPointSearcher:
         '''
         """
             send requests to given IP using username and secret_key for type = "logpoints"
-            our webserver should return [{"name": "", "ip":""}]
+            webserver should return [{"name": "", "ip":""}]
         """
 
         logpoints = []
